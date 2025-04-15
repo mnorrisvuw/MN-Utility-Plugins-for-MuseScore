@@ -1,7 +1,7 @@
 {
 	"titlepages": [
 		{
-			"label": "Classic",
+			"label": "Classic (Edwin)",
 			"thumbnail": "classic",
 			"composer": {
 				"fontsize": 36,
@@ -45,225 +45,6 @@
 			}
 		},
 		{
-			"label": "Avenir",
-			"thumbnail": "avenir",
-			"composer": {
-				"font": "Avenir",
-				"fontsize": 46,
-				"offsety": 50,
-				"align": "RIGHT"
-			},
-			"title": {
-				"font": "Avenir",
-				"fontsize": 36,
-				"fontstyle": "BOLD",
-				"align": "RIGHT VCENTER",
-				"offsety": -40
-			},
-			"subtitle": {
-				"font": "Avenir",
-				"fontsize": 22,
-				"align": "RIGHT VCENTER",
-				"offsety": -25
-			},
-			"line": {
-				"align": "HCENTER",
-				"offsety": 0
-			},
-			"line2": {
-				"align": "HCENTER BOTTOM"
-			}
-		},
-		{
-			"label": "Rockwell",
-			"thumbnail": "rockwell",
-			"composer": {
-				"font": "Rockwell",
-				"fontsize": 52,
-				"offsetx": 10,
-				"offsety": 30,
-				"align": "LEFT"
-			},
-			"title": {
-				"font": "Rockwell",
-				"fontsize": 46,
-				"offsetx": 10,
-				"offsety": -40,
-				"align": "LEFT VCENTER"
-			},
-			"subtitle": {
-				"font": "Rockwell",
-				"fontsize": 22,
-				"offsetx": 10,
-				"offsety": -25,
-				"align": "LEFT VCENTER"
-			},
-			"line": {
-				"align": "HCENTER"
-			}
-		},
-		{
-			"label": "Century Schoolbook",
-			"thumbnail": "centuryschoolbook",
-			"composer": {
-				"font": "Century Schoolbook",
-				"fontsize": 42,
-				"offsety": -50,
-				"case": "UPPER"
-			},
-			"title": {
-				"font": "Century Schoolbook",
-				"fontstyle": "ITALIC",
-				"fontsize": 36,
-				"offsety": -20
-			},
-			"subtitle": {
-				"font": "Century Schoolbook",
-				"fontsize": 22,
-				"offsety": -5
-			},
-			"line": {
-				"offsety" : -35
-			},
-			"frontmatterfont" : "Century Schoolbook"
-		},
-		{
-			"label": "Proxima Nova",
-			"thumbnail": "proximanova",
-			"composer": {
-				"font": "Proxima Nova",
-				"align" : "RIGHT",
-				"fontsize": 28,
-				"offsety": 20
-			},
-			"title": {
-				"font": "Proxima Nova",
-				"fontstyle": "BOLD",
-				"fontsize": 36,
-				"offsety": 50,
-				"align": "LEFT"
-			},
-			"subtitle": {
-				"font": "Proxima Nova",
-				"fontsize": 20,
-				"offsety": 70,
-				"align" : "LEFT"
-			},
-			"line": {
-				"align" : "HCENTER"
-			},
-			"line2": {
-				"align" : "HCENTER BOTTOM"
-			}
-		},
-		{
-			"label": "Lucida Bright",
-			"thumbnail": "lucidabright",
-			"composer": {
-				"font": "Lucida Bright",
-				"align" : "HCENTER",
-				"fontsize": 40,
-				"offsety": 20
-			},
-			"title": {
-				"font": "Lucida Bright",
-				"align": "HCENTER",
-				"fontsize": 40,
-				"offsety": 50
-			},
-			"subtitle": {
-				"font": "Lucida Bright",
-				"align" : "HCENTER",
-				"fontsize": 20,
-				"offsety": 70
-			},
-			"line": {
-				"align" : "HCENTER",
-				"offsety" : 37
-			},
-			"line2": {
-				"align" : "HCENTER",
-				"offsety" : 65
-			}
-		},
-		{
-			"label": "Gill Sans",
-			"thumbnail": "gillsans",
-			"composer": {
-				"font": "Gill Sans",
-				"fontsize": 28,
-				"offsety": -80,
-				"case" : "UPPER"
-			},
-			"title": {
-				"font": "Gill Sans",
-				"fontsize": 24,
-				"offsety": -65,
-				"case" : "UPPER"
-			},
-			"subtitle": {
-				"font": "Gill Sans",
-				"fontsize": 10,
-				"offsety": -45,
-				"case" : "UPPER"
-			}
-		},
-		{
-			"label": "Chaparral Pro",
-			"thumbnail": "chaparralpro",
-			"composer": {
-				"font": "Chaparral Pro",
-				"fontsize": 28,
-				"offsety" : 20,
-				"offsetx" : -10,
-				"align" : "RIGHT"
-			},
-			"title": {
-				"font": "Chaparral Pro",
-				"fontsize": 28,
-				"offsety" : 45,
-				"offsetx" : -10,
-				"align" : "RIGHT"
-			},
-			"subtitle": {
-				"font": "Chaparral Pro",
-				"fontsize": 22,
-				"offsety" : 60,
-				"offsetx" : -10,
-				"align" : "RIGHT"
-			}
-		},
-		{
-			"label": "Goudy Old Style",
-			"thumbnail": "goudyoldstyle",
-			"composer": {
-				"font": "Goudy Old Style",
-				"fontsize": 28,
-				"offsety" : -80,
-				"case" : "UPPER"
-			},
-			"title": {
-				"font": "Goudy Old Style",
-				"fontsize": 28,
-				"offsety" : -40,
-				"case" : "UPPER"
-			},
-			"subtitle": {
-				"font": "Goudy Old Style",
-				"fontsize": 22,
-				"offsety" : -25
-			},
-			"line": {
-				"char" : "\u2550",
-				"align" : "HCENTER"
-			},
-			"line2": {
-				"char" : "\u2550",
-				"align" : "HCENTER BOTTOM"
-			},
-			"frontmatterfont" : "Goudy Old Style"
-		},
-		{
 			"label" : "Aptos & Palatino",
 			"thumbnail" : "aptospalatino",
 			"composer" : {
@@ -298,6 +79,171 @@
 			"frontmatterfont" : "Goudy Old Style"
 		},
 		{
+			"label": "Avenir",
+			"thumbnail": "avenir",
+			"composer": {
+				"font": "Avenir",
+				"fontsize": 46,
+				"offsety": 50,
+				"align": "RIGHT"
+			},
+			"title": {
+				"font": "Avenir",
+				"fontsize": 36,
+				"fontstyle": "BOLD",
+				"align": "RIGHT VCENTER",
+				"offsety": -40
+			},
+			"subtitle": {
+				"font": "Avenir",
+				"fontsize": 22,
+				"align": "RIGHT VCENTER",
+				"offsety": -25
+			},
+			"line": {
+				"align": "HCENTER",
+				"offsety": 0
+			},
+			"line2": {
+				"align": "HCENTER BOTTOM"
+			}
+		},
+		{
+			"label": "Century Schoolbook",
+			"thumbnail": "centuryschoolbook",
+			"composer": {
+				"font": "Century Schoolbook",
+				"fontsize": 42,
+				"offsety": -50,
+				"case": "UPPER"
+			},
+			"title": {
+				"font": "Century Schoolbook",
+				"fontstyle": "ITALIC",
+				"fontsize": 36,
+				"offsety": -20
+			},
+			"subtitle": {
+				"font": "Century Schoolbook",
+				"fontsize": 22,
+				"offsety": -5
+			},
+			"line": {
+				"offsety" : -35
+			},
+			"frontmatterfont" : "Century Schoolbook"
+		},
+		{
+			"label": "Chaparral Pro",
+			"thumbnail": "chaparralpro",
+			"composer": {
+				"font": "Chaparral Pro",
+				"fontsize": 28,
+				"offsety" : 20,
+				"offsetx" : -10,
+				"align" : "RIGHT"
+			},
+			"title": {
+				"font": "Chaparral Pro",
+				"fontsize": 28,
+				"offsety" : 45,
+				"offsetx" : -10,
+				"align" : "RIGHT"
+			},
+			"subtitle": {
+				"font": "Chaparral Pro",
+				"fontsize": 22,
+				"offsety" : 60,
+				"offsetx" : -10,
+				"align" : "RIGHT"
+			}
+		},
+		{
+			"label": "Gill Sans",
+			"thumbnail": "gillsans",
+			"composer": {
+				"font": "Gill Sans",
+				"fontsize": 28,
+				"offsety": -80,
+				"case" : "UPPER"
+			},
+			"title": {
+				"font": "Gill Sans",
+				"fontsize": 24,
+				"offsety": -65,
+				"case" : "UPPER"
+			},
+			"subtitle": {
+				"font": "Gill Sans",
+				"fontsize": 10,
+				"offsety": -45,
+				"case" : "UPPER"
+			}
+		},
+		
+		{
+			"label": "Goudy Old Style",
+			"thumbnail": "goudyoldstyle",
+			"composer": {
+				"font": "Goudy Old Style",
+				"fontsize": 28,
+				"offsety" : -80,
+				"case" : "UPPER"
+			},
+			"title": {
+				"font": "Goudy Old Style",
+				"fontsize": 28,
+				"offsety" : -40,
+				"case" : "UPPER"
+			},
+			"subtitle": {
+				"font": "Goudy Old Style",
+				"fontsize": 22,
+				"offsety" : -25
+			},
+			"line": {
+				"char" : "\u2550",
+				"align" : "HCENTER"
+			},
+			"line2": {
+				"char" : "\u2550",
+				"align" : "HCENTER BOTTOM"
+			},
+			"frontmatterfont" : "Goudy Old Style"
+		},
+		{
+			"label": "Lucida Bright",
+			"thumbnail": "lucidabright",
+			"composer": {
+				"font": "Lucida Bright",
+				"align" : "HCENTER",
+				"fontsize": 40,
+				"offsety": 20
+			},
+			"title": {
+				"font": "Lucida Bright",
+				"align": "HCENTER",
+				"fontsize": 40,
+				"offsety": 50
+			},
+			"subtitle": {
+				"font": "Lucida Bright",
+				"align" : "HCENTER",
+				"fontsize": 20,
+				"offsety": 70
+			},
+			"line": {
+				"align" : "HCENTER",
+				"offsety" : 37
+			},
+			"line2": {
+				"align" : "HCENTER",
+				"offsety" : 65
+			}
+		},
+		
+		
+		{
 			"label" : "Optima",
 			"thumbnail" : "optima",
 			"composer" : {
@@ -326,6 +272,63 @@
 				"font" : "Optima",
 				"char" : "\u2550",
 				"align" : "HCENTER BOTTOM"
+			}
+		},
+		{
+			"label": "Proxima Nova",
+			"thumbnail": "proximanova",
+			"composer": {
+				"font": "Proxima Nova",
+				"align" : "RIGHT",
+				"fontsize": 28,
+				"offsety": 20
+			},
+			"title": {
+				"font": "Proxima Nova",
+				"fontstyle": "BOLD",
+				"fontsize": 36,
+				"offsety": 50,
+				"align": "LEFT"
+			},
+			"subtitle": {
+				"font": "Proxima Nova",
+				"fontsize": 20,
+				"offsety": 70,
+				"align" : "LEFT"
+			},
+			"line": {
+				"align" : "HCENTER"
+			},
+			"line2": {
+				"align" : "HCENTER BOTTOM"
+			}
+		},
+		{
+			"label": "Rockwell",
+			"thumbnail": "rockwell",
+			"composer": {
+				"font": "Rockwell",
+				"fontsize": 52,
+				"offsetx": 10,
+				"offsety": 30,
+				"align": "LEFT"
+			},
+			"title": {
+				"font": "Rockwell",
+				"fontsize": 46,
+				"offsetx": 10,
+				"offsety": -40,
+				"align": "LEFT VCENTER"
+			},
+			"subtitle": {
+				"font": "Rockwell",
+				"fontsize": 22,
+				"offsetx": 10,
+				"offsety": -25,
+				"align": "LEFT VCENTER"
+			},
+			"line": {
+				"align": "HCENTER"
 			}
 		}
 	]
