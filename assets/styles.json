@@ -296,6 +296,37 @@
 				"align" : "HCENTER BOTTOM"
 			},
 			"frontmatterfont" : "Goudy Old Style"
+		},
+		{
+			"label" : "Optima",
+			"thumbnail" : "optima",
+			"composer" : {
+				"font" : "Optima",
+				"fontsize" : 32,
+				"offsety" : -90,
+				"case" : "UPPER"
+			},
+			"title": {
+				"font": "Optima",
+				"fontsize": 52,
+				"offsety" : -60,
+				"case" : "UPPER"
+			},
+			"subtitle": {
+				"font": "Optima",
+				"fontsize" : 16,
+				"offsety" : 70
+			},
+			"line": {
+				"font" : "Optima",
+				"char" : "\u2550",
+				"align" : "HCENTER"
+			},
+			"line2": {
+				"font" : "Optima",
+				"char" : "\u2550",
+				"align" : "HCENTER BOTTOM"
+			}
 		}
 	]
 }
