@@ -24,19 +24,19 @@ MuseScore {
 	property var firstMeasure: null
 	property var numParts: 0
 	property var isSoloScore: false
-	property var numExcerpts: 0
 	property var inchesToMM: 25.4
 	property var mmToInches: 0.039370079
+	property var excerpts: null
+	property var numExcerpts: 0
+	property var amendedParts: false
 
   onRun: {
 		if (!curScore) return;
 		
 		var finalMsg = '';
-		
-		curScore.startCmd();
-		
+				
 		// select all
-		cmd ("select-all");
+		doCmd ("select-all");
 		
 		// get some variables
 		firstMeasure = curScore.firstMeasure;
@@ -45,7 +45,8 @@ MuseScore {
 		for (var i = 0; i < curScore.parts.length; i++) if (curScore.parts[i].show) visibleParts.push(curScore.parts[i]);
 		numParts = visibleParts.length;
 		isSoloScore = numParts == 1;
-		numExcerpts = curScore.excerpts.length;
+		excerpts = curScore.excerpts;
+		numExcerpts = excerpts.length;
 		if (numParts > 1 && numExcerpts < numParts) finalMsg = "Note that parts have not yet been created/opened, so I wasn’t able to alter the part settings.\nYou can do this by clicking ‘Parts’ then ’Open All’.\n\nOnce you have created and opened the parts, please run this again to alter the part settings.\nIgnore this message if you do not plan to create parts.";
 		
 		// REMOVE LAYOUT BREAKS
@@ -69,9 +70,16 @@ MuseScore {
 		// CHANGE INSTRUMENT NAMES
 		changeInstrumentNames();
 		
-		curScore.endCmd();
-		var dialogMsg = '<p>Changes to layout made.</p>';
-		if (finalMsg != '') dialogMsg = dialogMsg + '<p>' + finalMsg + '</p>';
+		// SELECT NONE
+		doCmd ('escape');
+		
+		var dialogMsg = '';
+		if (amendedParts) {
+			dialogMsg = '<p>Changes to the layout of the score and parts were made successfully.</p><p>Note that some changes may not be optimal, and further tweaks are likely to be required.</p>';
+		} else {
+			dialogMsg = '<p>Changes to the layout of the score were made successfully.</p><p>Note that some changes may not be optimal, and further tweaks are likely to be required.</p>';
+			if (finalMsg != '') dialogMsg = dialogMsg + '<p>' + finalMsg + '</p>';
+		}
 		dialog.msg = dialogMsg;
 		dialog.show();
 		//restoreSelection();
@@ -89,7 +97,13 @@ MuseScore {
 			}
 			currMeasure = currMeasure.nextMeasure;
 		}
-		for (var i = 0; i < breaks.length; i++ ) removeElement (breaks[i]);
+		for (var i = 0; i < breaks.length; i++ ) deleteObj (breaks[i]);
+	}
+	
+	function deleteObj (theElem) {
+		curScore.startCmd ();
+		removeElement (theElem);
+		curScore.endCmd ();
 	}
 	
 	function changeInstrumentNames () {
@@ -113,17 +127,14 @@ MuseScore {
 	
 	function setPartSettings () {
 		
-		if (numParts == 1 || numExcerpts < numParts) return;
-		var spatium = 7.0 / (4.0*inchesToMM*mscoreDPI);
+		if (isSoloScore || numExcerpts < numParts) return;
+		var spatium = 6.8 / (4.0*inchesToMM*mscoreDPI);
 		for (var i = 0; i < numExcerpts; i++) {
-			var thePart = excerpts[i];
-			style = thePart.partScore.style;
-			
+			var thePart = excerpts[i];			
 			setPartSetting (thePart, "spatium",spatium);
-			setPartSetting (thePart,"enableIndentationOnFirstSystem", 0);
+			setPartSetting (thePart, "enableIndentationOnFirstSystem", 0);
 			setPartSetting (thePart, "enableVerticalSpread", 1);
 			setPartSetting (thePart, "minSystemSpread", 6);
-			setPartSetting (thePart, "maxSystemSpread", 10);
 			setPartSetting (thePart, "maxSystemSpread", 10);
 			setPartSetting (thePart, "frameSystemDistance", 8);
 			setPartSetting (thePart, "lastSystemFillLimit", 0);
@@ -132,12 +143,11 @@ MuseScore {
 			setPartSetting (thePart, "minMMRestWidth", 18);
 			setPartSetting (thePart, "partInstrumentFrameType", 1);
 			setPartSetting (thePart, "partInstrumentFramePadding", 0.8);
-
 		}
+		amendedParts = true;
 	}
 	
 	function setSpacing() {
-		if (numParts > 1 && numExcerpts >= numParts) checkPartSettings();
 
 		// change staff spacing
 		// change min and max system distance
@@ -173,7 +183,7 @@ MuseScore {
 		var spatium = staffSize / 4.0;
 		setSetting ("spatium",spatium/inchesToMM*mscoreDPI);
 		
-		// TO DO: SET STAFF NAME VISIBILITY
+		// SET STAFF NAME VISIBILITY
 		setSetting("hideInstrumentNameIfOneInstrument",1);
 		setSetting("firstSystemInstNameVisibility",0);
 		setSetting("subsSystemInstNameVisibility",1);
@@ -183,10 +193,18 @@ MuseScore {
 		} else {
 			setSetting("subsSystemInstNameVisibility",1);
 		}
+		
+		setSetting ("enableIndentationOnFirstSystem", !isSoloScore);
+		
 		// STAFF AND SYSTEM WIDTHS
-		setSetting("enableVerticalSpread", 1);		
-		setSetting("minSystemSpread", 12);
-		setSetting("maxSystemSpread", 24);
+		setSetting("enableVerticalSpread", 1);
+		if (isSoloScore) {
+			setSetting ("minSystemSpread", 6);
+			setSetting ("maxSystemSpread", 14);
+		} else {	
+			setSetting("minSystemSpread", 12);
+			setSetting("maxSystemSpread", 24);
+		}
 		setSetting("minStaffSpread", 5);
 		if (isSoloScore) {
 			setSetting("maxStaffSpread", 6);
@@ -197,11 +215,11 @@ MuseScore {
 	
 	function setOtherStyleSettings() {
 		// BAR SETTINGS
-		setSetting("minMeasureWidth",16.0);
+		setSetting("minMeasureWidth", isSoloScore ? 14.0 : 16.0);
 		setSetting("measureSpacing",1.5);
 		setSetting("barWidth",0.16);
 		setSetting("showMeasureNumberOne", 0);
-		setSetting("minNoteDistance", 0.6);
+		setSetting("minNoteDistance", isSoloScore ? 1.1 : 0.6);
 		setSetting("staffDistance", 5);
 		
 		// SLUR SETTINGS
@@ -241,12 +259,12 @@ MuseScore {
 	}
 	
 	function setTitleFrame () {
-		cmd ("select-all");
-		cmd ("insert-vbox");
+		doCmd ("select-all");
+		doCmd ("insert-vbox");
 		var vbox = curScore.selection.elements[0];
-		cmd ("title-text");
+		doCmd ("title-text");
 		var tempText = curScore.selection.elements[0];
-		cmd ("select-similar");
+		doCmd ("select-similar");
 		var elems = curScore.selection.elements;
 		var firstPageNum = firstMeasure.parent.parent.pagenumber;
 		var spatium = curScore.style.value("spatium")*25.4/mscoreDPI;
@@ -278,9 +296,21 @@ MuseScore {
 		if (vbox == null) {
 			logError ("checkScoreText () — vbox was null");
 		} else {
-			removeElement (vbox);
+			deleteObj (vbox);
 		}
-		if (topbox != null) topbox.boxHeight = 15;
+		if (topbox != null) {
+			
+			curScore.startCmd ();
+			topbox.autoscale = 0;
+			topbox.boxHeight = 15;
+			curScore.endCmd ();
+		}
+	}
+	
+	function doCmd (theCmd) {
+		curScore.startCmd ();
+		cmd (theCmd);
+		curScore.endCmd ();
 	}
 	
 	function setSetting (theSetting, theValue) {

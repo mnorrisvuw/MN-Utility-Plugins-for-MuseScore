@@ -5,7 +5,8 @@
 			"thumbnail": "classic",
 			"composer": {
 				"fontsize": 36,
-				"offsety": -60
+				"offsety": -60,
+				"case" : "UPPER"
 			},
 			"title": {
 				"fontstyle": "ITALIC",
@@ -123,7 +124,8 @@
 			},
 			"line": {
 				"offsety" : -35
-			}
+			},
+			"frontmatterfont" : "Century Schoolbook"
 		},
 		{
 			"label": "Proxima Nova",
@@ -205,6 +207,95 @@
 				"offsety": -45,
 				"case" : "UPPER"
 			}
+		},
+		{
+			"label": "Chaparral Pro",
+			"thumbnail": "chaparralpro",
+			"composer": {
+				"font": "Chaparral Pro",
+				"fontsize": 28,
+				"offsety" : 20,
+				"offsetx" : -10,
+				"align" : "RIGHT"
+			},
+			"title": {
+				"font": "Chaparral Pro",
+				"fontsize": 28,
+				"offsety" : 45,
+				"offsetx" : -10,
+				"align" : "RIGHT"
+			},
+			"subtitle": {
+				"font": "Chaparral Pro",
+				"fontsize": 22,
+				"offsety" : 60,
+				"offsetx" : -10,
+				"align" : "RIGHT"
+			}
+		},
+		{
+			"label": "Goudy Old Style",
+			"thumbnail": "goudyoldstyle",
+			"composer": {
+				"font": "Goudy Old Style",
+				"fontsize": 28,
+				"offsety" : -80,
+				"case" : "UPPER"
+			},
+			"title": {
+				"font": "Goudy Old Style",
+				"fontsize": 28,
+				"offsety" : -40,
+				"case" : "UPPER"
+			},
+			"subtitle": {
+				"font": "Goudy Old Style",
+				"fontsize": 22,
+				"offsety" : -25
+			},
+			"line": {
+				"char" : "\u2550",
+				"align" : "HCENTER"
+			},
+			"line2": {
+				"char" : "\u2550",
+				"align" : "HCENTER BOTTOM"
+			},
+			"frontmatterfont" : "Goudy Old Style"
+		},
+		{
+			"label" : "Aptos & Palatino",
+			"thumbnail" : "aptospalatino",
+			"composer" : {
+				"font" : "Aptos",
+				"fontsize" : 32,
+				"align" : "HCENTER",
+				"offsety" : 40,
+				"case" : "UPPER"
+			},
+			"title": {
+				"font": "Palatino",
+				"fontsize": 60,
+				"fontstyle" : "ITALIC",
+				"offsety" : -40
+			},
+			"subtitle": {
+				"font": "Aptos",
+				"fontsize" : 16,
+				"offsety" : -20,
+				"case" : "UPPER"
+			},
+			"line": {
+				"font" : "Aptos",
+				"char" : "\u2550",
+				"align" : "HCENTER"
+			},
+			"line2": {
+				"font" : "Aptos",
+				"char" : "\u2550",
+				"align" : "HCENTER BOTTOM"
+			},
+			"frontmatterfont" : "Goudy Old Style"
 		}
 	]
 }
