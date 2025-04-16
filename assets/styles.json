@@ -109,6 +109,33 @@
 			}
 		},
 		{
+			"label": "Baskerville",
+			"thumbnail": "baskerville",
+			"composer": {
+				"font": "Baskerville"
+				"fontsize": 32,
+				"offsety": -90,
+				"case" : "UPPER"
+			},
+			"title": {
+				"font": "Baskerville",
+				"fontsize": 60,
+				"fontstyle" : "ITALIC",
+				"offsety": -50
+			},
+			"subtitle": {
+				"font": "Baskerville",
+				"fontsize": 16,
+				"offsety": -30
+			},
+			"line": {
+				"offsety" : -74,
+				"repeats" : 15,
+				"char" : "\u2501"
+			},
+			"frontmatterfont" : "Baskerville"
+		},
+		{
 			"label": "Century Schoolbook",
 			"thumbnail": "centuryschoolbook",
 			"composer": {

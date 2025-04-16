@@ -47,7 +47,7 @@ MuseScore {
 		isSoloScore = numParts == 1;
 		excerpts = curScore.excerpts;
 		numExcerpts = excerpts.length;
-		if (numParts > 1 && numExcerpts < numParts) finalMsg = "Note that parts have not yet been created/opened, so I wasn’t able to alter the part settings.\nYou can do this by clicking ‘Parts’ then ’Open All’.\n\nOnce you have created and opened the parts, please run this again to alter the part settings.\nIgnore this message if you do not plan to create parts.";
+		if (numParts > 1 && numExcerpts < numParts) finalMsg = "NOTE: Parts for this score have not yet been created/opened, so I wasn’t able to change the part layout settings.\nYou can create them by clicking ‘Parts’, then ’Open All’. Once you have created and opened the parts, please run this plug-in again to change the part layout settings. (Ignore this if you do not plan to create parts.)";
 		
 		// REMOVE LAYOUT BREAKS
 		removeLayoutBreaks();

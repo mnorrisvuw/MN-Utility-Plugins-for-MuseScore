@@ -61,9 +61,9 @@ Direct downloads of the Zip file can be found on the [releases page](https://git
 
 ## <a id="fonts"></a>Fonts
 
-The title page templates make use of the following commonly available fonts. Many of these fonts are bundled with Windows and/or Mac operating systems, or with Microsoft products. Some are open source and available for a free download. 
+The title page templates make use of the following commonly available fonts. Many of these fonts come bundled with the Windows and/or Mac OS operating systems, with Microsoft Office, or as a free download.
 
-Depending on your particular combination of OS and other software, you may or may not already have them installed. Below are a list of download links if you need to manually install them:
+Depending on your particular combination of OS and other software, **you may or may not already have them installed**. If you need to install them, below is a list of download links:
 * **Academy Engraved LET**: available for download [here](https://fontsgeek.com/fonts/Academy-Engraved-LET-Plain)
 * **Aptos**: bundled with the latest available for download [here](https://www.microsoft.com/en-us/download/details.aspx?id=106087)
 * **Avenir**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/avenir-font/)
@@ -80,9 +80,12 @@ Depending on your particular combination of OS and other software, you may or ma
 * **Work Sans**: available for download [here](https://open-foundry.com/fonts/work_sans_light)
 
 ## <a id="use"></a>How to use
-* **MN Create Title Page**: Before running this plug-in, make sure you have a vertical frame at the top of your first page of music which has the title of the piece, a subtitle (e.g. ‘for string quartet’) and the composer’s name. The plug-in will use this information to create a new, styled title page.
+* **MN Create Title Page**: 
+    * Before running this plug-in, make sure you have the default box (‘vertical frame’) at the top of your first page of music with the correct title, subtitle (e.g. ‘for string quartet’) and your/the composer’s name. The plug-in will use this information to create a new, styled title page.
+    * Adding an image can be another nice touch. Once you’ve created your title page, right-click anywhere in the title page frame and choose Add→Image, then select an image from your hard-drive. Once added, you’ll need to resize the image (in Properties) and drag it into the correct location.
 
-* **MN Make Recommended Layout Changes**: You can run this plug-in at any time; however, it’s recommend to ensure .
+* **MN Make Recommended Layout Changes**:
+    * You can run this plug-in at any time; however, it’s recommended that you have added all of the instruments you will need, and have at least two systems of music entered.
 
 
 
