@@ -11,11 +11,10 @@ import QtQuick.Controls 2.15
 import Muse.UiComponents 1.0
 import FileIO 3.0
 
-
 MuseScore {
 	version:  "1.0"
 	description: "This plugin automatically makes recommended layout changes to the score, based on preferences curated by Michael Norris"
-	menuPath: "Plugins.MNMakeRecommendedLayoutChanges";
+	menuPath: "Plugins.MNMakeRecommendedLayoutChanges"
 	requiresScore: true
 	title: "MN Make Recommended Layout Changes"
 	id: mnmakerecommendedlayoutchanges
@@ -30,11 +29,12 @@ MuseScore {
 	property var numExcerpts: 0
 	property var amendedParts: false
 
-  onRun: {
+	onRun: {
 		if (!curScore) return;
 		
 		var finalMsg = '';
-				
+		
+		curScore.startCmd();
 		// select all
 		doCmd ("select-all");
 		
@@ -68,21 +68,22 @@ MuseScore {
 		setPartSettings();
 		
 		// CHANGE INSTRUMENT NAMES
-		changeInstrumentNames();
+		//changeInstrumentNames();
 		
 		// SELECT NONE
-		doCmd ('escape');
+		cmd ('escape');
+		curScore.endCmd();
 		
 		var dialogMsg = '';
 		if (amendedParts) {
-			dialogMsg = '<p>Changes to the layout of the score and parts were made successfully.</p><p>Note that some changes may not be optimal, and further tweaks are likely to be required.</p>';
+			dialogMsg = '<p>Changes to the layout of the score and parts were made successfully.</p><p>NOTE: If your parts were open, you’ll need to close and re-open them to see the correct layout.</p><p>Some changes may not be optimal, and further tweaks are likely to be required.</p>';
 		} else {
 			dialogMsg = '<p>Changes to the layout of the score were made successfully.</p><p>Note that some changes may not be optimal, and further tweaks are likely to be required.</p>';
 			if (finalMsg != '') dialogMsg = dialogMsg + '<p>' + finalMsg + '</p>';
 		}
 		dialog.msg = dialogMsg;
 		dialog.show();
-		//restoreSelection();
+		
 	}
 	
 	function removeLayoutBreaks () {
@@ -90,20 +91,16 @@ MuseScore {
 		var breaks = [];
 		while (currMeasure) {
 			var elems = currMeasure.elements;
-			for (var i = 0; i < elems.length; i ++) {
-				if (elems[i].type == Element.LAYOUT_BREAK) {
-					breaks.push(elems[i]);
-				}
-			}
+			for (var i = 0; i < elems.length; i ++) if (elems[i].type == Element.LAYOUT_BREAK) breaks.push(elems[i]);
 			currMeasure = currMeasure.nextMeasure;
 		}
-		for (var i = 0; i < breaks.length; i++ ) deleteObj (breaks[i]);
+		for (var i = 0; i < breaks.length; i++ ) removeElement (breaks[i]);
 	}
 	
 	function deleteObj (theElem) {
-		curScore.startCmd ();
+		//curScore.startCmd ();
 		removeElement (theElem);
-		curScore.endCmd ();
+		//curScore.endCmd ();
 	}
 	
 	function changeInstrumentNames () {
@@ -128,21 +125,25 @@ MuseScore {
 	function setPartSettings () {
 		
 		if (isSoloScore || numExcerpts < numParts) return;
-		var spatium = 6.8 / (4.0*inchesToMM*mscoreDPI);
+		var spatium = (6.8 / 4) / inchesToMM*mscoreDPI;
 		for (var i = 0; i < numExcerpts; i++) {
-			var thePart = excerpts[i];			
-			setPartSetting (thePart, "spatium",spatium);
-			setPartSetting (thePart, "enableIndentationOnFirstSystem", 0);
-			setPartSetting (thePart, "enableVerticalSpread", 1);
-			setPartSetting (thePart, "minSystemSpread", 6);
-			setPartSetting (thePart, "maxSystemSpread", 10);
-			setPartSetting (thePart, "frameSystemDistance", 8);
-			setPartSetting (thePart, "lastSystemFillLimit", 0);
-			setPartSetting (thePart, "minNoteDistance", 1.3);
-			setPartSetting (thePart, "createMultiMeasureRests", 1);
-			setPartSetting (thePart, "minMMRestWidth", 18);
-			setPartSetting (thePart, "partInstrumentFrameType", 1);
-			setPartSetting (thePart, "partInstrumentFramePadding", 0.8);
+			var thePart = excerpts[i];
+			if (thePart != null) {
+				setPartSetting (thePart, "spatium", spatium);
+				setPartSetting (thePart, "enableIndentationOnFirstSystem", 0);
+				setPartSetting (thePart, "enableVerticalSpread", 1);
+				setPartSetting (thePart, "minSystemSpread", 6);
+				setPartSetting (thePart, "maxSystemSpread", 11);
+				setPartSetting (thePart, "minStaffSpread", 6);
+				setPartSetting (thePart, "maxStaffSpread", 11);
+				setPartSetting (thePart, "frameSystemDistance", 8);
+				setPartSetting (thePart, "lastSystemFillLimit", 0);
+				setPartSetting (thePart, "minNoteDistance", 1.3);
+				setPartSetting (thePart, "createMultiMeasureRests", 1);
+				setPartSetting (thePart, "minMMRestWidth", 18);
+				setPartSetting (thePart, "partInstrumentFrameType", 1);
+				setPartSetting (thePart, "partInstrumentFramePadding", 0.8);
+			}
 		}
 		amendedParts = true;
 	}
@@ -181,6 +182,7 @@ MuseScore {
 			if (staffSize < 3.7) staffSize = 3.7;
 		}
 		var spatium = staffSize / 4.0;
+		
 		setSetting ("spatium",spatium/inchesToMM*mscoreDPI);
 		
 		// SET STAFF NAME VISIBILITY
@@ -248,13 +250,16 @@ MuseScore {
 		setSetting("musicalSymbolFont","Bravura");
 		setSetting("musicalTextFont","Bravura Text");
 		setSetting("titleFontSize",24);
-		setSetting("subtitleFontSize",13);
+		setSetting("subTitleFontSize",13);
 		setSetting("composerFontSize",10);
 		setSetting("expressionFontSize",12);
 		setSetting("staffTextFontSize",12);
 		setSetting("systemTextFontSize",12);
 		
-		var fontsToTimes = ["tupletFontFace", "lyricsOddFontFace", "lyricsEvenFontFace", "hairpinFontFace", "romanNumeralFontFace", "voltaFontFace", "stringNumberFontFace", "longInstrumentFontFace", "shortInstrumentFontFace","partInstrumentFontFace","expressionFontFace", "tempoFontFace", "tempoChangeFontFace", "metronomeFontFace", "measureNumberFontFace", "mmRestRangeFontFace", "systemTextFontFace", "staffTextFontFace", "pageNumberFontFace", "instrumentChangeFontFace"];
+		setSetting ("partInstrumentFrameType", 1);
+		setSetting ("partInstrumentFramePadding", 0.8);
+		
+		var fontsToTimes = ["tupletFontFace", "lyricsOddFontFace", "lyricsEvenFontFace", "hairpinFontFace", "romanNumeralFontFace", "voltaFontFace", "stringNumberFontFace", "longInstrumentFontFace", "shortInstrumentFontFace","expressionFontFace", "tempoFontFace", "tempoChangeFontFace", "metronomeFontFace", "measureNumberFontFace", "mmRestRangeFontFace", "systemTextFontFace", "staffTextFontFace", "pageNumberFontFace", "instrumentChangeFontFace"];
 		for (var i = 0; i < fontsToTimes.length; i++) setSetting (fontsToTimes[i],"Times New Roman");
 	}
 	
@@ -267,7 +272,7 @@ MuseScore {
 		doCmd ("select-similar");
 		var elems = curScore.selection.elements;
 		var firstPageNum = firstMeasure.parent.parent.pagenumber;
-		var spatium = curScore.style.value("spatium")*25.4/mscoreDPI;
+		var spatium = curScore.style.value("spatium")*inchesToMM/mscoreDPI;
 		var topbox = null;
 		for (var i = 0; i < elems.length; i++) {
 			var e = elems[i];
@@ -300,17 +305,17 @@ MuseScore {
 		}
 		if (topbox != null) {
 			
-			curScore.startCmd ();
+			//curScore.startCmd ();
 			topbox.autoscale = 0;
 			topbox.boxHeight = 15;
-			curScore.endCmd ();
+			//curScore.endCmd ();
 		}
 	}
 	
 	function doCmd (theCmd) {
-		curScore.startCmd ();
+		//curScore.startCmd ();
 		cmd (theCmd);
-		curScore.endCmd ();
+		//curScore.endCmd ();
 	}
 	
 	function setSetting (theSetting, theValue) {
@@ -320,6 +325,7 @@ MuseScore {
 	
 	function setPartSetting (thePart, theSetting, theValue) {
 		if (thePart.partScore.style.value(theSetting) == theValue) return;
+		if (thePart.partScore == null) return;
 		thePart.partScore.style.setValue(theSetting,theValue);
 	}
 	
@@ -339,64 +345,64 @@ MuseScore {
 	}
 	
 	StyledDialogView {
-			id: dialog
-			title: "CHECK COMPLETED"
-			contentHeight: 232
-			contentWidth: 456
-			property var msg: ""
+		id: dialog
+		title: "CHECK COMPLETED"
+		contentHeight: 300
+		contentWidth: 500
+		property var msg: ""
+	
+		Text {
+			id: theText
+			width: parent.width-40
+			x: 20
+			y: 20
+	
+			text: "MN MAKE RECOMMENDED LAYOUT CHANGES"
+			font.bold: true
+			font.pointSize: 18
+		}
 		
-			Text {
-				id: theText
-				width: parent.width-40
-				x: 20
-				y: 20
-		
-				text: "MN MAKE RECOMMENDED LAYOUT CHANGES"
-				font.bold: true
-				font.pointSize: 18
-			}
-			
-			Rectangle {
-				x:20
-				width: parent.width-45
-				y:45
-				height: 1
-				color: "black"
-			}
-		
-			ScrollView {
-				id: view
-				x: 20
-				y: 60
-				height: parent.height-100
-				width: parent.width-40
+		Rectangle {
+			x:20
+			width: parent.width-45
+			y:45
+			height: 1
+			color: "black"
+		}
+	
+		ScrollView {
+			id: view
+			x: 20
+			y: 60
+			height: parent.height-100
+			width: parent.width-40
+			leftInset: 0
+			leftPadding: 0
+			ScrollBar.vertical.policy: ScrollBar.AsNeeded
+			TextArea {
+				height: parent.height
+				textFormat: Text.RichText
+				text: dialog.msg
+				wrapMode: TextEdit.Wrap
 				leftInset: 0
 				leftPadding: 0
-				ScrollBar.vertical.policy: ScrollBar.AsNeeded
-				TextArea {
-					height: parent.height
-					textFormat: Text.RichText
-					text: dialog.msg
-					wrapMode: TextEdit.Wrap
-					leftInset: 0
-					leftPadding: 0
-					readOnly: true
-				}
+				readOnly: true
 			}
-		
-			ButtonBox {
-				anchors {
-					horizontalCenter: parent.horizontalCenter
-					bottom: parent.bottom
-					margins: 10
-				}
-				buttons: [ ButtonBoxModel.Ok ]
-				navigationPanel.section: dialog.navigationSection
-				onStandardButtonClicked: function(buttonId) {
-					if (buttonId === ButtonBoxModel.Ok) {
-						dialog.close()
-					}
+		}
+	
+		ButtonBox {
+			anchors {
+				horizontalCenter: parent.horizontalCenter
+				bottom: parent.bottom
+				margins: 10
+			}
+			buttons: [ ButtonBoxModel.Ok ]
+			navigationPanel.section: dialog.navigationSection
+			onStandardButtonClicked: function(buttonId) {
+				if (buttonId === ButtonBoxModel.Ok) {
+					dialog.close()
 				}
 			}
 		}
 	}
+}

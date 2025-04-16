@@ -40,6 +40,7 @@ MuseScore {
   onRun: {
 		if (!curScore) return;
 		
+		
 		spatium = curScore.style.value("spatium")*25.4/mscoreDPI;
 		
 		// ** CHECK THERE ISN’T ALREADY A TITLE PAGE ** //
@@ -136,9 +137,7 @@ MuseScore {
 			frontMatter.align = Align.HCENTER;
 			frontMatter.fontSize = 10;
 			if ("frontmatterfont" in chosenTitlePageStyle) {
-				curScore.startCmd ();
 				frontMatter.fontFace = chosenTitlePageStyle.frontmatterfont;
-				curScore.endCmd ();
 			}
 		}
 		doCmd ("insert-vbox");
@@ -272,10 +271,11 @@ MuseScore {
 			if ("offsetx" in line2Style) newLine2.offsetX = line2Style.offsetx / spatium;
 			if ("char" in line2Style) newLine2.text = line2Style.char.repeat(23);
 		}
-		curScore.startCmd();
 		var calcBoxHeight = hasBottom ? Math.round(titlePageHeight / 1.95) : titlePageHeight;
+		curScore.startCmd();
 		titlePageBox.boxHeight = calcBoxHeight; //titlePageHeight - (titlePageBox.pagePos.y * 2);
 		curScore.endCmd();
+
 		var theMsg = '';
 		if (frontMatterBox == null) {
 			theMsg = '<p>Title page created.';
@@ -285,6 +285,7 @@ MuseScore {
 			curScore.endCmd();
 			theMsg = '<p>Title page and front matter page created.';
 		}
+
 		theMsg += ' Note that multiline titles or composer texts may require additional manual adjustment.</p><p>IMPORTANT: If you wish to exclude the title page from the parts, please select the title page frame and tick ‘Properties→Exclude from parts’ (I cannot do this automatically).</p>';
 		dialog.msg = theMsg; 
 		dialog.show();
