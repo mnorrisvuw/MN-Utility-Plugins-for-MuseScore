@@ -112,7 +112,7 @@
 			"label": "Baskerville",
 			"thumbnail": "baskerville",
 			"composer": {
-				"font": "Baskerville"
+				"font": "Baskerville",
 				"fontsize": 32,
 				"offsety": -90,
 				"case" : "UPPER"
