@@ -15,7 +15,7 @@ A set of plug-ins for [MuseScore Studio 4.4](https://musescore.org/en) that prov
 <div align="center">
   <img
     max-width="600"
-    width="55%"
+    width="75%"
     src="images/MNCreateTitlePageScreenshot.png"
     alt="Create Title Page screenshot"
   >
@@ -26,6 +26,7 @@ A set of plug-ins for [MuseScore Studio 4.4](https://musescore.org/en) that prov
 
 ### <img width="200px" src="MNCreateTitlePage.png" alt="Create Title Page" style="vertical-align:top; margin-right:10px"> MN CREATE TITLE PAGE
 * **MN Create Title Page** automatically creates a professional-looking title page from the Title, Subtitle and Composer information entered on your score
+* It lets you choose from a number of different templates/styles, many of which have been loosely modelled on professional music publishers’ house styles.
 * **MN Create Title Page** will also, if required, automatically create a ‘front matter page’, with boilerplate text entered for you to populate (e.g. programme note, performance notes, instrumentation, etc.)
 
 ***
