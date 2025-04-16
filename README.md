@@ -14,8 +14,8 @@ A set of plug-ins for [MuseScore Studio 4.4](https://musescore.org/en) that prov
 
 <div align="center">
   <img
-    max-width="400"
-    width="45%"
+    max-width="600"
+    width="55%"
     src="images/MNCreateTitlePageScreenshot.png"
     alt="Create Title Page screenshot"
   >
