@@ -6,6 +6,7 @@ A set of plug-ins for [MuseScore Studio 4.4](https://musescore.org/en) that prov
   <p>
     <a href="#includedplugins">Included plug-ins</a> •
     <a href="#installation">Installation</a> •
+    <a href="#fonts">Required Fonts</a> •
     <a href="#use">How to use</a> •
     <a href="#feedback">Feedback, requests and bug reports</a> •
     <a href="#license">License</a>
@@ -28,6 +29,7 @@ A set of plug-ins for [MuseScore Studio 4.4](https://musescore.org/en) that prov
 * **MN Create Title Page** automatically creates a professional-looking title page from the Title, Subtitle and Composer information entered on your score
 * It lets you choose from a number of different templates/styles, many of which have been loosely modelled on professional music publishers’ house styles.
 * **MN Create Title Page** will also, if required, automatically create a ‘front matter page’, with boilerplate text entered for you to populate (e.g. programme note, performance notes, instrumentation, etc.)
+* **NOTE**: the bundled templates require commonly available fonts. Many of these fonts come with Mac OS X and/or Windows, or are installed by Microsoft Office. Some may need to be manually installed. See below for links to font downloads.
 
 ***
 
@@ -56,6 +58,26 @@ A set of plug-ins for [MuseScore Studio 4.4](https://musescore.org/en) that prov
 ### Direct Download
 
 Direct downloads of the Zip file can be found on the [releases page](https://github.com/mnorrisvuw/MN-Utility-Plugins-for-MuseScore/releases).
+
+## <a id="fonts"></a>Fonts
+
+The title page templates make use of the following commonly available fonts. Many of these fonts are bundled with Windows and/or Mac operating systems, or with Microsoft products. Some are open source and available for a free download. 
+
+Depending on your particular combination of OS and other software, you may or may not already have them installed. Below are a list of download links if you need to manually install them:
+* **Academy Engraved LET**: available for download [here](https://fontsgeek.com/fonts/Academy-Engraved-LET-Plain)
+* **Aptos**: bundled with the latest available for download [here](https://www.microsoft.com/en-us/download/details.aspx?id=106087)
+* **Avenir**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/avenir-font/)
+* **Century Schoolbook**: available for download [here](https://www.dafontfree.io/download/century-schoolbook/)
+* **Chaparral Pro**: available for download [here](https://font.download/font/chaparral-pro)
+* **Futura**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/futura-font-free/)
+* **Gill Sans**: bundled with Max OS X and Windows 11; available for download [here](https://font.download/font/gill-sans-2)
+* **Goudy Old Style**: bundled with Microsoft Office; available for download [here](https://font.download/font/goudy-old-style)
+* **Lucida Bright**: available for download [here](https://fontsgeek.com/fonts/Lucida-Bright-Regular)
+* **Optima**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/optima-font/)
+* **Palatino**: bundled with Mac OS X and Windows 11
+* **Proxima Nova**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/proxima-nova-font-free/)
+* **Rockwell**: bundled with Mac OS X; available for download [here](https://freefontsfamily.org/rockwell-font-free/)
+* **Work Sans**: available for download [here](https://open-foundry.com/fonts/work_sans_light)
 
 ## <a id="use"></a>How to use
 * **MN Create Title Page**: Before running this plug-in, make sure you have a vertical frame at the top of your first page of music which has the title of the piece, a subtitle (e.g. ‘for string quartet’) and the composer’s name. The plug-in will use this information to create a new, styled title page.

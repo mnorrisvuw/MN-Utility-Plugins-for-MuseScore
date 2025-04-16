@@ -254,7 +254,9 @@ MuseScore {
 			}
 			if ("offsety" in lineStyle) newLine.offsetY = lineStyle.offsety / spatium;
 			if ("offsetx" in lineStyle) newLine.offsetX = lineStyle.offsetx / spatium;
-			if ("char" in lineStyle) newLine.text = lineStyle.char.repeat(23);
+			var repeats = 23;
+			if ("repeats" in lineStyle) repeats = lineStyle.repeats;
+			if ("char" in lineStyle) newLine.text = lineStyle.char.repeat(repeats);
 		}
 		
 		if (newLine2 != null) {
@@ -269,7 +271,9 @@ MuseScore {
 			}
 			if ("offsety" in line2Style) newLine2.offsetY = line2Style.offsety / spatium;
 			if ("offsetx" in line2Style) newLine2.offsetX = line2Style.offsetx / spatium;
-			if ("char" in line2Style) newLine2.text = line2Style.char.repeat(23);
+			var repeats = 23;
+			if ("repeats" in line2Style) repeats = line2Style.repeats;
+			if ("char" in line2Style) newLine2.text = line2Style.char.repeat(repeats);
 		}
 		var calcBoxHeight = hasBottom ? Math.round(titlePageHeight / 1.95) : titlePageHeight;
 		curScore.startCmd();

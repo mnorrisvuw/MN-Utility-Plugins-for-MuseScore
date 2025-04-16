@@ -159,6 +159,28 @@
 			}
 		},
 		{
+			"label": "Futura",
+			"thumbnail": "futura",
+			"composer": {
+				"font": "Futura",
+				"fontstyle" : "BOLD",
+				"fontsize": 26,
+				"offsety": -70,
+				"align" : "RIGHT VCENTER"
+			},
+			"title": {
+				"font": "Futura",
+				"fontsize": 28,
+				"offsety": -40,
+				"align" : "RIGHT VCENTER"
+			},
+			"subtitle": {
+				"font": "Futura",
+				"fontsize": 16,
+				"align" : "RIGHT VCENTER"
+			}
+		},
+		{
 			"label": "Gill Sans",
 			"thumbnail": "gillsans",
 			"composer": {
@@ -329,6 +351,33 @@
 			},
 			"line": {
 				"align": "HCENTER"
+			}
+		},
+		{
+			"label": "Work Sans (open-foundry.com)",
+			"thumbnail": "worksans",
+			"composer": {
+				"font": "Work Sans",
+				"fontstyle" : "BOLD",
+				"fontsize": 36,
+				"offsety": -60,
+				"case" : "UPPER"
+			},
+			"title": {
+				"font": "Work Sans",
+				"fontsize": 28,
+				"offsety": -40,
+				"case" : "UPPER"
+			},
+			"subtitle": {
+				"font": "Work Sans",
+				"fontsize": 14,
+				"offsety": 40
+			},
+			"line": {
+				"offsety" : -48,
+				"repeats" : 15,
+				"char" : "\u2501"
 			}
 		}
 	]
