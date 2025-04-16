@@ -67,6 +67,7 @@ Depending on your particular combination of OS and other software, **you may or 
 * **Academy Engraved LET**: available for download [here](https://fontsgeek.com/fonts/Academy-Engraved-LET-Plain)
 * **Aptos**: bundled with the latest available for download [here](https://www.microsoft.com/en-us/download/details.aspx?id=106087)
 * **Avenir**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/avenir-font/)
+* **Baskerville**: bundled with Mac OS X; Libre Baskerville, a very similar font, is available for download [here](https://fonts.google.com/specimen/Libre+Baskerville) — you will need to manually set the fonts to Libre Baskerville.
 * **Century Schoolbook**: available for download [here](https://www.dafontfree.io/download/century-schoolbook/)
 * **Chaparral Pro**: available for download [here](https://font.download/font/chaparral-pro)
 * **Futura**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/futura-font-free/)
