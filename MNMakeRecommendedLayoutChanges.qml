@@ -28,17 +28,39 @@ MuseScore {
 	property var excerpts: null
 	property var numExcerpts: 0
 	property var amendedParts: false
-
+	property var removeLayoutBreaksOption: false
+	property var setSpacingOption: false
+	property var setBravuraOption: false
+	property var setTimesOption: false
+	property var setFontSizesOption: false
+	property var setPartsOption: false
+	property var removeStretchesOption: false
+	property var setTitleFrameOption: false
 	onRun: {
 		if (!curScore) return;
 		
-		var finalMsg = '';
+		// Show the options window
+		options.open();		
+	}
+	
+	function makeChanges() {
+		removeLayoutBreaksOption = options.removeBreaks;
+		setSpacingOption = options.setSpacing;
+		setBravuraOption = options.setBravura;
+		setTimesOption = options.setTimes;
+		setFontSizesOption = options.setFontSizes;
+		setPartsOption = options.setParts;
+		setTitleFrameOption = options.setTitleFrame;
+		removeStretchesOption = options.removeStretches;
+		options.close();
 		
+		var finalMsg = '';
+		// get some variables
+
+
 		curScore.startCmd();
 		// select all
 		doCmd ("select-all");
-		
-		// get some variables
 		firstMeasure = curScore.firstMeasure;
 		var visibleParts = [];
 		// ** calculate number of parts, but ignore hidden ones
@@ -50,22 +72,24 @@ MuseScore {
 		if (numParts > 1 && numExcerpts < numParts) finalMsg = "NOTE: Parts for this score have not yet been created/opened, so I wasn’t able to change the part layout settings.\nYou can create them by clicking ‘Parts’, then ’Open All’. Once you have created and opened the parts, please run this plug-in again to change the part layout settings. (Ignore this if you do not plan to create parts.)";
 		
 		// REMOVE LAYOUT BREAKS
-		removeLayoutBreaks();
+		if (removeLayoutBreaksOption) removeLayoutBreaks();
 		
 		// SET ALL THE SPACING-RELATED SETTINGS
-		setSpacing();
+		if (setSpacingOption) setSpacing();
 		
 		// SET ALL THE OTHER STYLE SETTINGS
-		setOtherStyleSettings();
+		if (setOtherStyleSettings) setOtherStyleSettings();
 		
 		// FONT SETTINGS
-		setFonts();
+		if (setTimesOption) setTimes();
+		if (setBravuraOption) setBravura();
+		if (setFontSizesOption) setFontSizes();
 		
 		// LAYOUT THE TITLE FRAME ON p. 1
-		setTitleFrame();
+		if (setTitleFrameOption) setTitleFrame();
 		
 		// SET PART SETTINGS
-		setPartSettings();
+		if (setPartsOption) setPartSettings();
 		
 		// CHANGE INSTRUMENT NAMES
 		//changeInstrumentNames();
@@ -83,7 +107,6 @@ MuseScore {
 		}
 		dialog.msg = dialogMsg;
 		dialog.show();
-		
 	}
 	
 	function removeLayoutBreaks () {
@@ -122,31 +145,7 @@ MuseScore {
 		}*/
 	}
 	
-	function setPartSettings () {
-		
-		if (isSoloScore || numExcerpts < numParts) return;
-		var spatium = (6.8 / 4) / inchesToMM*mscoreDPI;
-		for (var i = 0; i < numExcerpts; i++) {
-			var thePart = excerpts[i];
-			if (thePart != null) {
-				setPartSetting (thePart, "spatium", spatium);
-				setPartSetting (thePart, "enableIndentationOnFirstSystem", 0);
-				setPartSetting (thePart, "enableVerticalSpread", 1);
-				setPartSetting (thePart, "minSystemSpread", 6);
-				setPartSetting (thePart, "maxSystemSpread", 11);
-				setPartSetting (thePart, "minStaffSpread", 6);
-				setPartSetting (thePart, "maxStaffSpread", 11);
-				setPartSetting (thePart, "frameSystemDistance", 8);
-				setPartSetting (thePart, "lastSystemFillLimit", 0);
-				setPartSetting (thePart, "minNoteDistance", 1.3);
-				setPartSetting (thePart, "createMultiMeasureRests", 1);
-				setPartSetting (thePart, "minMMRestWidth", 18);
-				setPartSetting (thePart, "partInstrumentFrameType", 1);
-				setPartSetting (thePart, "partInstrumentFramePadding", 0.8);
-			}
-		}
-		amendedParts = true;
-	}
+	
 	
 	function setSpacing() {
 
@@ -186,81 +185,124 @@ MuseScore {
 		setSetting ("spatium",spatium/inchesToMM*mscoreDPI);
 		
 		// SET STAFF NAME VISIBILITY
-		setSetting("hideInstrumentNameIfOneInstrument",1);
-		setSetting("firstSystemInstNameVisibility",0);
-		setSetting("subsSystemInstNameVisibility",1);
-		var subsequentStaffNamesShouldBeHidden = numParts < 6;
-		if (subsequentStaffNamesShouldBeHidden) {
-			setSetting("subsSystemInstNameVisibility",2);
-		} else {
-			setSetting("subsSystemInstNameVisibility",1);
-		}
-		
+		setSetting ("hideInstrumentNameIfOneInstrument",1);
+		setSetting ("firstSystemInstNameVisibility",0);
+		setSetting ("subsSystemInstNameVisibility",1);
+		setSetting ("subsSystemInstNameVisibility", (numParts < 6) ? 2: 1);
 		setSetting ("enableIndentationOnFirstSystem", !isSoloScore);
+		setSetting ("enableVerticalSpread", 1);
 		
-		// STAFF AND SYSTEM WIDTHS
-		setSetting("enableVerticalSpread", 1);
-		if (isSoloScore) {
-			setSetting ("minSystemSpread", 6);
-			setSetting ("maxSystemSpread", 14);
-		} else {	
-			setSetting("minSystemSpread", 12);
-			setSetting("maxSystemSpread", 24);
-		}
-		setSetting("minStaffSpread", 5);
-		if (isSoloScore) {
-			setSetting("maxStaffSpread", 6);
-		} else {
-			setSetting("maxStaffSpread", 8);
-		}
+		// STAFF SPACING
+		setSetting ("minStaffSpread", 5);
+		setSetting ("maxStaffSpread", isSoloScore ? 6 : 10);
+		
+		// SYSTEM SPACING
+		setSetting ("minSystemSpread", isSoloScore ? 6 : 12);
+		setSetting ("maxSystemSpread", isSoloScore ? 14 : 32);		
 	}
 	
 	function setOtherStyleSettings() {
+		
 		// BAR SETTINGS
-		setSetting("minMeasureWidth", isSoloScore ? 14.0 : 16.0);
-		setSetting("measureSpacing",1.5);
-		setSetting("barWidth",0.16);
-		setSetting("showMeasureNumberOne", 0);
-		setSetting("minNoteDistance", isSoloScore ? 1.1 : 0.6);
-		setSetting("staffDistance", 5);
+		setSetting ("minMeasureWidth", isSoloScore ? 14.0 : 16.0);
+		setSetting ("measureSpacing",1.5);
+		setSetting ("barWidth",0.16);
+		setSetting ("showMeasureNumberOne", 0);
+		setSetting ("minNoteDistance", isSoloScore ? 1.1 : 0.6);
+		setSetting ("staffDistance", 5);
 		
 		// SLUR SETTINGS
-		setSetting("slurEndWidth",0.06);
-		setSetting("slurMidWidth",0.16);
+		setSetting ("slurEndWidth",0.06);
+		setSetting ("slurMidWidth",0.16);
 		
 		//setSetting("staffLowerBorder");
-		setSetting("lastSystemFillLimit", 0);
-		setSetting("crossMeasureValues",0);
-		setSetting("tempoFontStyle", 1);
-		setSetting("metronomeFontStyle", 0);
-		setSetting("staffLineWidth",0.1);
+		setSetting ("lastSystemFillLimit", 0);
+		setSetting ("crossMeasureValues",0);
+		setSetting ("tempoFontStyle", 1);
+		setSetting ("metronomeFontStyle", 0);
+		setSetting ("staffLineWidth",0.1);
 	}
 	
-	function setFonts() {
-		setSetting("tupletFontStyle", 2);
-		setSetting("tupletFontSize", 11);
-		setSetting("measureNumberFontSize", 8.5);
-		setSetting("longInstrumentFontSize", 12);
-		setSetting("shortInstrumentFontSize", 12);
-		setSetting("partInstrumentFontSize", 12);
-		setSetting("tempoFontSize", 13);
-		setSetting("metronomeFontSize", 13);
-		setSetting("pageNumberFontStyle",0);
-		setSetting("pageNumberFontSize", 12);
-		setSetting("musicalSymbolFont","Bravura");
-		setSetting("musicalTextFont","Bravura Text");
-		setSetting("titleFontSize",24);
-		setSetting("subTitleFontSize",13);
-		setSetting("composerFontSize",10);
-		setSetting("expressionFontSize",12);
-		setSetting("staffTextFontSize",12);
-		setSetting("systemTextFontSize",12);
+	function setPartSettings () {
 		
+		if (isSoloScore || numExcerpts < numParts) return;
+		var spatium = (6.8 / 4) / inchesToMM*mscoreDPI;
+		for (var i = 0; i < numExcerpts; i++) {
+			var thePart = excerpts[i];
+			if (thePart != null) {
+				setPartSetting (thePart, "spatium", spatium);
+				setPartSetting (thePart, "enableIndentationOnFirstSystem", 0);
+				setPartSetting (thePart, "enableVerticalSpread", 1);
+				setPartSetting (thePart, "minSystemSpread", 6);
+				setPartSetting (thePart, "maxSystemSpread", 11);
+				setPartSetting (thePart, "minStaffSpread", 6);
+				setPartSetting (thePart, "maxStaffSpread", 11);
+				setPartSetting (thePart, "frameSystemDistance", 8);
+				setPartSetting (thePart, "lastSystemFillLimit", 0);
+				setPartSetting (thePart, "minNoteDistance", 1.3);
+				setPartSetting (thePart, "createMultiMeasureRests", 1);
+				setPartSetting (thePart, "minMMRestWidth", 18);
+				setPartSetting (thePart, "partInstrumentFrameType", 1);
+				setPartSetting (thePart, "partInstrumentFramePadding", 0.8);
+				
+				if (setFontSizesOption) {
+					setPartSetting (thePart, "tupletFontStyle", 2);
+					setPartSetting (thePart, "tupletFontSize", 11);
+					setPartSetting (thePart, "measureNumberFontSize", 8.5);
+					setPartSetting (thePart, "pageNumberFontStyle",0);
+					
+					var fontsToTwelvePoint = ["longInstrument", "shortInstrument", "partInstrument", "tempo", "tempoChange", "metronome", "pageNumber", "expression", "staffText", "systemText", "rehearsalMark"];
+					for (var i = 0; i < fontsToTwelvePoint.length; i++) setPartSetting (thePart, fontsToTwelvePoint[i]+"FontSize", 12);
+				}
+				if (setBravuraOption) {
+					
+					setPartSetting (thePart, "musicalSymbolFont", "Bravura");
+					setPartSetting (thePart, "musicalTextFont", "Bravura Text");
+				}
+				if (setTimesOption) {
+					var fontsToTimes = ["tuplet", "lyricsOdd", "lyricsEven", "hairpin", "romanNumeral", "volta", "stringNumber", "longInstrument", "shortInstrument","expression", "tempo", "tempoChange", "metronome", "measureNumber", "mmRestRange", "systemText", "staffText", "pageNumber", "instrumentChange"];
+					for (var i = 0; i < fontsToTimes.length; i++) setPartSetting (thePart, fontsToTimes[i]+"FontFace", "Times New Roman");
+				}
+				
+				if (removeLayoutBreaksOption) {
+					var currMeasure = thePart.partScore.firstMeasure;
+					var breaks = [];
+					while (currMeasure) {
+						var elems = currMeasure.elements;
+						for (var j = 0; j < elems.length; j ++) if (elems[j].type == Element.LAYOUT_BREAK) breaks.push(elems[j]);
+						currMeasure = currMeasure.nextMeasure;
+					}
+					for (var j = 0; j < breaks.length; j++ ) removeElement (breaks[j]);
+				}
+			}
+		}
+		amendedParts = true;
+		
+	}
+	
+	function setFontSizes() {
+		setSetting ("tupletFontStyle", 2);
+		setSetting ("tupletFontSize", 11);
+		setSetting ("measureNumberFontSize", 8.5);
+		setSetting ("pageNumberFontStyle",0);
+		setSetting ("titleFontSize", 24);
+		setSetting ("subTitleFontSize", 13);
+		setSetting ("composerFontSize", 10);
 		setSetting ("partInstrumentFrameType", 1);
 		setSetting ("partInstrumentFramePadding", 0.8);
 		
-		var fontsToTimes = ["tupletFontFace", "lyricsOddFontFace", "lyricsEvenFontFace", "hairpinFontFace", "romanNumeralFontFace", "voltaFontFace", "stringNumberFontFace", "longInstrumentFontFace", "shortInstrumentFontFace","expressionFontFace", "tempoFontFace", "tempoChangeFontFace", "metronomeFontFace", "measureNumberFontFace", "mmRestRangeFontFace", "systemTextFontFace", "staffTextFontFace", "pageNumberFontFace", "instrumentChangeFontFace"];
-		for (var i = 0; i < fontsToTimes.length; i++) setSetting (fontsToTimes[i],"Times New Roman");
+		var fontsToTwelvePoint = ["longInstrument", "shortInstrument", "partInstrument", "tempo", "tempoChange", "metronome", "pageNumber", "expression", "staffText", "systemText", "rehearsalMark"];
+		for (var i = 0; i < fontsToTwelvePoint.length; i++) setSetting (fontsToTwelvePoint[i]+"FontSize", 12);
+	}
+	
+	function setBravura () {
+		setSetting ("musicalSymbolFont", "Bravura");
+		setSetting ("musicalTextFont", "Bravura Text");
+	}
+	
+	function setTimes () {
+		var fontsToTimes = ["tuplet", "lyricsOdd", "lyricsEven", "hairpin", "romanNumeral", "volta", "stringNumber", "longInstrument", "shortInstrument","expression", "tempo", "tempoChange", "metronome", "measureNumber", "mmRestRange", "systemText", "staffText", "pageNumber", "instrumentChange"];
+		for (var i = 0; i < fontsToTimes.length; i++) setSetting (fontsToTimes[i]+"FontFace", "Times New Roman");
 	}
 	
 	function setTitleFrame () {
@@ -401,6 +443,147 @@ MuseScore {
 			onStandardButtonClicked: function(buttonId) {
 				if (buttonId === ButtonBoxModel.Ok) {
 					dialog.close()
+				}
+			}
+		}
+	}
+	
+	StyledDialogView {
+		id: options
+		title: "MN MAKE RECOMMENDED LAYOUT CHANGES"
+		contentHeight: 320
+		contentWidth: 600
+		property color backgroundColor: ui.theme.backgroundSecondaryColor
+		property var removeBreaks: true
+		property var setSpacing: true
+		property var setBravura: true
+		property var setOtherStyleSettings: true
+		property var setTimes: true
+		property var setTitleFrame: true
+		property var setFontSizes: true
+		property var setParts: true
+		property var removeStretches: true
+	
+		Text {
+			id: styleText
+			anchors.left: parent.left;
+			anchors.leftMargin: 20;
+			anchors.top: parent.top;
+			anchors.topMargin: 20;
+	
+			text: "Options"
+			font.bold: true
+			font.pointSize: 18
+		}
+		
+		Rectangle {
+			id: rect
+			anchors.left: styleText.left;
+			anchors.top: styleText.bottom;
+			anchors.topMargin: 10;
+			width: parent.width-45
+			height: 1
+			color: "black"
+		}
+		
+		Grid {
+			columns: 2
+			spacing: 15
+			padding: 15
+			width: 280
+			height: 381
+			anchors.left: rect.left;
+			anchors.top: rect.bottom;
+			anchors.topMargin: 10;
+			
+			CheckBox {
+				text: "Remove existing layout breaks"
+				checked: options.removeBreaks
+				onClicked: {
+					checked = !checked
+					options.removeBreaks = checked
+				}
+			}
+			CheckBox {
+				text: "Set recommended staff and system spacing"
+				checked: options.setSpacing
+				onClicked: {
+					checked = !checked
+					options.setSpacing = checked
+				}
+			}
+			CheckBox {
+				text: "Set other style settings"
+				checked: options.setOtherStyleSettings
+				onClicked: {
+					checked = !checked
+					options.setOtherStyleSettings = checked
+				}
+			}
+			CheckBox {
+				text: "Set music font to Bravura"
+				checked: options.setBravura
+				onClicked: {
+					checked = !checked
+					options.setBravura = checked
+				}
+			}
+			CheckBox {
+				text: "Set text font to Times New Roman"
+				checked: options.setTimes
+				onClicked: {
+					checked = !checked
+					options.setTimes = checked
+				}
+			}
+			CheckBox {
+				text: "Tweak title frame layout"
+				checked: options.setTitleFrame
+				onClicked: {
+					checked = !checked
+					options.setTitleFrame = checked
+				}
+			}
+			CheckBox {
+				text: "Set recommended font sizes"
+				checked: options.setFontSizes
+				onClicked: {
+					checked = !checked
+					options.setFontSizes = checked
+				}
+			}
+			CheckBox {
+				text: "Change layout for all parts"
+				checked: options.setParts
+				onClicked: {
+					checked = !checked
+					options.setParts = checked
+				}
+			}
+			CheckBox {
+				text: "Remove all measure stretches"
+				checked: options.removeStretches
+				onClicked: {
+					checked = !checked
+					options.removeStretches = checked
+				}
+			}
+		}
+		
+		ButtonBox {
+			anchors {
+				horizontalCenter: parent.horizontalCenter
+				bottom: parent.bottom
+				margins: 10
+			}
+			buttons: [ ButtonBoxModel.Cancel, ButtonBoxModel.Ok ]
+			navigationPanel.section: dialog.navigationSection
+			onStandardButtonClicked: function(buttonId) {
+				if (buttonId === ButtonBoxModel.Cancel) {
+					dialog.close()
+				}
+				if (buttonId === ButtonBoxModel.Ok) {
+					makeChanges()
 				}
 			}
 		}
