@@ -75,7 +75,7 @@ MuseScore {
 		if (numParts > 1 && numExcerpts < numParts) finalMsg = "<b>NOTE</b>: Parts for this score have not yet been created/opened, so I wasn’t able to change the part layout settings.\nYou can create them by clicking ‘Parts’, then ’Open All’. Once you have created and opened the parts, please run this plug-in again on the score to change the part layout settings. (Ignore this if you do not plan to create parts.)";
 		
 		// REMOVE LAYOUT BREAKS
-		if (removeLayoutBreaksOption) removeLayoutBreaks();
+		if (removeLayoutBreaksOption || removeStretchesOption) removeLayoutBreaksAndStretches();
 		
 		// SET ALL THE SPACING-RELATED SETTINGS
 		if (setSpacingOption) setSpacing();
@@ -116,12 +116,16 @@ MuseScore {
 		dialog.show();
 	}
 	
-	function removeLayoutBreaks () {
+	function removeLayoutBreaksAndStretches () {
 		var currMeasure = firstMeasure;
 		var breaks = [];
 		while (currMeasure) {
-			var elems = currMeasure.elements;
-			for (var i = 0; i < elems.length; i ++) if (elems[i].type == Element.LAYOUT_BREAK) breaks.push(elems[i]);
+			if (removeLayoutBreaksOption) {
+				var elems = currMeasure.elements;
+				for (var i = 0; i < elems.length; i ++) if (elems[i].type == Element.LAYOUT_BREAK) breaks.push(elems[i]);
+			}
+			if (removeStretchesOption) if (currMeasure.userStretch != 1) currMeasure.userStretch = 1;
+			
 			currMeasure = currMeasure.nextMeasure;
 		}
 		for (var i = 0; i < breaks.length; i++ ) removeElement (breaks[i]);
