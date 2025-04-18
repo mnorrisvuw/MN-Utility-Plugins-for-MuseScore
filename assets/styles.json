@@ -186,6 +186,33 @@
 			}
 		},
 		{
+			"label": "Fanwood Text",
+			"thumbnail": "fanwoodtext",
+			"composer": {
+				"font": "Fanwood Text",
+				"fontsize": 42,
+				"offsety": -55,
+				"case" : "UPPER"
+			},
+			"title": {
+				"font": "Fanwood Text",
+				"fontsize": 28,
+				"fontstyle" : "ITALIC",
+				"offsety": -18
+			},
+			"subtitle": {
+				"font": "Fanwood Text",
+				"fontsize": 22,
+				"offsety" : -5
+			},
+			"line" : {
+				"char" : "\u2619",
+				"repeats" : 1,
+				"fontsize" : 32,
+				"offsety" : -35
+			}
+		},
+		{
 			"label": "Futura",
 			"thumbnail": "futura",
 			"composer": {

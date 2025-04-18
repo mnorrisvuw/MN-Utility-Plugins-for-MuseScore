@@ -8,6 +8,7 @@
 import MuseScore 3.0
 import QtQuick 2.9
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 import Muse.UiComponents 1.0
 import FileIO 3.0
 
@@ -36,6 +37,7 @@ MuseScore {
 	property var setPartsOption: false
 	property var removeStretchesOption: false
 	property var setTitleFrameOption: false
+	property var formatTempoMarkingsOption: false
 	onRun: {
 		if (!curScore) return;
 		
@@ -52,6 +54,7 @@ MuseScore {
 		setPartsOption = options.setParts;
 		setTitleFrameOption = options.setTitleFrame;
 		removeStretchesOption = options.removeStretches;
+		formatTempoMarkingsOption = options.formatTempoMarkings;
 		options.close();
 		
 		var finalMsg = '';
@@ -69,7 +72,7 @@ MuseScore {
 		isSoloScore = numParts == 1;
 		excerpts = curScore.excerpts;
 		numExcerpts = excerpts.length;
-		if (numParts > 1 && numExcerpts < numParts) finalMsg = "NOTE: Parts for this score have not yet been created/opened, so I wasn’t able to change the part layout settings.\nYou can create them by clicking ‘Parts’, then ’Open All’. Once you have created and opened the parts, please run this plug-in again to change the part layout settings. (Ignore this if you do not plan to create parts.)";
+		if (numParts > 1 && numExcerpts < numParts) finalMsg = "<b>NOTE</b>: Parts for this score have not yet been created/opened, so I wasn’t able to change the part layout settings.\nYou can create them by clicking ‘Parts’, then ’Open All’. Once you have created and opened the parts, please run this plug-in again on the score to change the part layout settings. (Ignore this if you do not plan to create parts.)";
 		
 		// REMOVE LAYOUT BREAKS
 		if (removeLayoutBreaksOption) removeLayoutBreaks();
@@ -84,6 +87,7 @@ MuseScore {
 		if (setTimesOption) setTimes();
 		if (setBravuraOption) setBravura();
 		if (setFontSizesOption) setFontSizes();
+		if (formatTempoMarkingsOption) formatTempoMarkings();
 		
 		// LAYOUT THE TITLE FRAME ON p. 1
 		if (setTitleFrameOption) setTitleFrame();
@@ -96,11 +100,14 @@ MuseScore {
 		
 		// SELECT NONE
 		cmd ('escape');
+		
+		cmd ('escape');
 		curScore.endCmd();
+		cmd ('relayout');
 		
 		var dialogMsg = '';
 		if (amendedParts) {
-			dialogMsg = '<p>Changes to the layout of the score and parts were made successfully.</p><p>NOTE: If your parts were open, you’ll need to close and re-open them to see the correct layout.</p><p>Some changes may not be optimal, and further tweaks are likely to be required.</p>';
+			dialogMsg = '<p>Changes to the layout of the score and parts were made successfully.</p><p><b>NOTE</b>: If your parts were open, you’ll need to close and re-open them to see the correct layout.</p><p>Some changes may not be optimal, and further tweaks are likely to be required.</p>';
 		} else {
 			dialogMsg = '<p>Changes to the layout of the score were made successfully.</p><p>Note that some changes may not be optimal, and further tweaks are likely to be required.</p>';
 			if (finalMsg != '') dialogMsg = dialogMsg + '<p>' + finalMsg + '</p>';
@@ -210,6 +217,9 @@ MuseScore {
 		setSetting ("showMeasureNumberOne", 0);
 		setSetting ("minNoteDistance", isSoloScore ? 1.1 : 0.6);
 		setSetting ("staffDistance", 5);
+		setSetting ("barNoteDistance",1.4);
+		setSetting ("barAccidentalDistance",0.8);
+
 		
 		// SLUR SETTINGS
 		setSetting ("slurEndWidth",0.06);
@@ -354,6 +364,25 @@ MuseScore {
 		}
 	}
 	
+	function formatTempoMarkings () {
+		doCmd ('select-all');
+		var elems = curScore.selection.elements;
+		const r = /((<sym>metNoteQuarterUp<\/sym>|<sym>metNoteHalfUp<\/sym>|<sym>metNote8thUp<\/sym>|\uECA5|\uECA7|\uECA3)([^=])*=([^0-9]*)*[0-9]*)/g;
+		for (var i = 0; i < elems.length; i++) {
+			var e = elems[i];
+			if (e.type == Element.TEMPO_TEXT) {
+				var t = e.text;
+				if (t.match(r) && !t.includes('<b>')) {
+					//e.fontStyle = 0;
+					
+					
+					//e.text = t.replace(r,'BOB'));
+					e.text = '<b>'+t.replace(r,'</b>$1');
+				}
+			}
+		}
+	}
+	
 	function doCmd (theCmd) {
 		//curScore.startCmd ();
 		cmd (theCmd);
@@ -451,8 +480,8 @@ MuseScore {
 	StyledDialogView {
 		id: options
 		title: "MN MAKE RECOMMENDED LAYOUT CHANGES"
-		contentHeight: 320
-		contentWidth: 600
+		contentHeight: 360
+		contentWidth: 500
 		property color backgroundColor: ui.theme.backgroundSecondaryColor
 		property var removeBreaks: true
 		property var setSpacing: true
@@ -463,6 +492,7 @@ MuseScore {
 		property var setFontSizes: true
 		property var setParts: true
 		property var removeStretches: true
+		property var formatTempoMarkings: true
 	
 		Text {
 			id: styleText
@@ -486,16 +516,23 @@ MuseScore {
 			color: "black"
 		}
 		
-		Grid {
+		
+		
+		GridLayout {
+			id: grid
 			columns: 2
-			spacing: 15
-			padding: 15
+			columnSpacing: 15
+			rowSpacing: 15
 			width: 280
-			height: 381
 			anchors.left: rect.left;
 			anchors.top: rect.bottom;
 			anchors.topMargin: 10;
-			
+			Text {
+				id: layoutLabel
+				text: "Change layout"
+				font.bold: true
+				Layout.columnSpan: 2
+			}
 			CheckBox {
 				text: "Remove existing layout breaks"
 				checked: options.removeBreaks
@@ -504,38 +541,7 @@ MuseScore {
 					options.removeBreaks = checked
 				}
 			}
-			CheckBox {
-				text: "Set recommended staff and system spacing"
-				checked: options.setSpacing
-				onClicked: {
-					checked = !checked
-					options.setSpacing = checked
-				}
-			}
-			CheckBox {
-				text: "Set other style settings"
-				checked: options.setOtherStyleSettings
-				onClicked: {
-					checked = !checked
-					options.setOtherStyleSettings = checked
-				}
-			}
-			CheckBox {
-				text: "Set music font to Bravura"
-				checked: options.setBravura
-				onClicked: {
-					checked = !checked
-					options.setBravura = checked
-				}
-			}
-			CheckBox {
-				text: "Set text font to Times New Roman"
-				checked: options.setTimes
-				onClicked: {
-					checked = !checked
-					options.setTimes = checked
-				}
-			}
+			
 			CheckBox {
 				text: "Tweak title frame layout"
 				checked: options.setTitleFrame
@@ -545,11 +551,11 @@ MuseScore {
 				}
 			}
 			CheckBox {
-				text: "Set recommended font sizes"
-				checked: options.setFontSizes
+				text: "Set staff/system spacing"
+				checked: options.setSpacing
 				onClicked: {
 					checked = !checked
-					options.setFontSizes = checked
+					options.setSpacing = checked
 				}
 			}
 			CheckBox {
@@ -568,6 +574,52 @@ MuseScore {
 					options.removeStretches = checked
 				}
 			}
+			CheckBox {
+				text: "Change style settings"
+				checked: options.setOtherStyleSettings
+				onClicked: {
+					checked = !checked
+					options.setOtherStyleSettings = checked
+				}
+			}
+			
+			Text {
+				text: "Change fonts"
+				font.bold: true
+				Layout.columnSpan: 2
+			}
+			CheckBox {
+				text: "Set music font to Bravura"
+				checked: options.setBravura
+				onClicked: {
+					checked = !checked
+					options.setBravura = checked
+				}
+			}
+			CheckBox {
+				text: "Set text font to Times New Roman"
+				checked: options.setTimes
+				onClicked: {
+					checked = !checked
+					options.setTimes = checked
+				}
+			}
+			CheckBox {
+				text: "Set recommended font sizes"
+				checked: options.setFontSizes
+				onClicked: {
+					checked = !checked
+					options.setFontSizes = checked
+				}
+			}
+			CheckBox {
+				text: "Format tempo markings"
+				checked: options.formatTempoMarkings
+				onClicked: {
+					checked = !checked
+					options.formatTempoMarkings = checked
+				}
+			}
 		}
 		
 		ButtonBox {
@@ -580,7 +632,7 @@ MuseScore {
 			navigationPanel.section: dialog.navigationSection
 			onStandardButtonClicked: function(buttonId) {
 				if (buttonId === ButtonBoxModel.Cancel) {
-					dialog.close()
+					options.close()
 				}
 				if (buttonId === ButtonBoxModel.Ok) {
 					makeChanges()

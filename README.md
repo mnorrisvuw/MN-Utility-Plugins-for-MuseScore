@@ -54,6 +54,7 @@ A set of plug-ins for [MuseScore Studio 4.4](https://musescore.org/en) that prov
 * Click **Home→Plugins** or **Plugins→Manage plugins...**
 * For each of the MN Utility plugins, click on their icon and click ‘**Enable**’
 * The plugins should now be available from the **Plugins** menu
+* You may also need to download and install fonts — see below
 
 ### Direct Download
 
@@ -70,6 +71,7 @@ Depending on your particular combination of OS and other software, **you may or 
 * **Baskerville**: bundled with Mac OS X; Libre Baskerville, a very similar font, is available for download [here](https://fonts.google.com/specimen/Libre+Baskerville) — you will need to manually set the fonts to Libre Baskerville.
 * **Century Schoolbook**: available for download [here](https://www.dafontfree.io/download/century-schoolbook/)
 * **Chaparral Pro**: available for download [here](https://font.download/font/chaparral-pro)
+* **Fanwood Text**: available for free download [here](https://www.theleagueofmoveabletype.com/fanwood)
 * **Futura**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/futura-font-free/)
 * **Gill Sans**: bundled with Max OS X and Windows 11; available for download [here](https://font.download/font/gill-sans-2)
 * **Goudy Old Style**: bundled with Microsoft Office; available for download [here](https://font.download/font/goudy-old-style)
