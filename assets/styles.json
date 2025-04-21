@@ -10,15 +10,17 @@
 			},
 			"title": {
 				"fontstyle": "ITALIC",
-				"fontsize": 28
+				"fontsize": 28,
+				"offsety" : -5
 			},
 			"subtitle": {
-				"fontsize": 22,
+				"fontsize": 18,
 				"offsety": 10
 			},
 			"line": {
 				"offsety": -30
-			}
+			},
+			"os" : "mac"
 		},
 		{
 			"label": "Academy Engraved",
@@ -32,37 +34,98 @@
 			},
 			"title": {
 				"fontstyle": "ITALIC",
-				"fontsize": 36,
+				"fontsize": 32,
 				"offsety": -40
 			},
 			"subtitle": {
-				"fontsize": 22,
+				"fontsize": 18,
 				"offsety": -25
 			},
 			"line": {
 				"align": "HCENTER",
 				"offsety": 50
-			}
+			},
+			"os" : "mac"
 		},
+		{
+			"label": "Alegreya Sans",
+			"thumbnail": "alegreyasans",
+			"composer": {
+				"font": "Alegreya Sans",
+				"fontsize": 36,
+				"offsety" : 40,
+				"align" : "RIGHT"
+			},
+			"title": {
+				"font": "Alegreya Sans",
+				"fontstyle" : "BOLD",
+				"fontsize": 32,
+				"offsety" : 70,
+				"case" : "UPPER",
+				"align" : "RIGHT"
+			},
+			"subtitle": {
+				"font": "Alegreya Sans",
+				"fontsize": 12,
+				"offsety" : 85,
+				"align" : "RIGHT"
+			},
+			"line" : {
+				"fontsize" : 24,
+				"fontstyle" : "BOLD", 
+				"align" : "RIGHT",
+				"offsety" : 60,
+				"repeats" : 18
+			},
+			"fonturl" : "https://fonts.google.com/specimen/Alegreya+Sans"
+		},
+		
+		{
+			"label": "Amulya",
+			"thumbnail": "amulya",
+			"composer": {
+				"font": "Amulya",
+				"fontsize": 28,
+				"offsetx" : 20,
+				"offsety": 60,
+				"align" : "LEFT"
+			},
+			"title": {
+				"font": "Amulya",
+				"fontsize": 26,
+				"offsetx" : 20,
+				"offsety": 85,
+				"align" : "LEFT"
+			},
+			"subtitle": {
+				"font": "Amulya",
+				"fontsize": 14,
+				"offsetx" : 20,
+				"offsety": 100,
+				"align" : "LEFT"
+			},
+			"fonturl" : "https://www.fontshare.com/fonts/amulya"
+		},
+		
 		{
 			"label" : "Aptos & Palatino",
 			"thumbnail" : "aptospalatino",
 			"composer" : {
 				"font" : "Aptos",
-				"fontsize" : 32,
+				"fontsize" : 30,
 				"align" : "HCENTER",
 				"offsety" : 40,
 				"case" : "UPPER"
 			},
 			"title": {
 				"font": "Palatino",
-				"fontsize": 60,
+				"fontsize": 54,
 				"fontstyle" : "ITALIC",
 				"offsety" : -40
 			},
 			"subtitle": {
 				"font": "Aptos",
-				"fontsize" : 16,
+				"fontsize" : 14,
 				"offsety" : -20,
 				"case" : "UPPER"
 			},
@@ -76,37 +139,66 @@
 				"char" : "\u2550",
 				"align" : "HCENTER BOTTOM"
 			},
-			"frontmatterfont" : "Goudy Old Style"
+			"frontmatterfont" : "Palatino",
+			"fonturl" : "https://learn.microsoft.com/en-us/typography/font-list/aptos"
 		},
+		
+		{
+			"label": "Archivo",
+			"thumbnail": "archivo",
+			"composer": {
+				"font": "Archivo",
+				"fontstyle" : "BOLD",
+				"fontsize": 36,
+				"offsety": 40,
+				"align" : "HCENTER"
+			},
+			"title": {
+				"font": "Archivo",
+				"fontsize": 32,
+				"offsety": 60,
+				"align" : "HCENTER"
+			},
+			"subtitle": {
+				"font": "Archivo",
+				"fontsize": 14,
+				"offsety": 75,
+				"align" : "HCENTER"
+			},
+			"fonturl" : "https://fonts.google.com/specimen/Archivo"
+		},
+		
 		{
 			"label": "Avenir",
 			"thumbnail": "avenir",
 			"composer": {
-				"font": "Avenir",
-				"fontsize": 46,
-				"offsety": 50,
-				"align": "RIGHT"
+				"font" : "Avenir",
+				"fontsize" : 26,
+				"offsety" : 50,
+				"align" : "HCENTER",
+				"case" : "UPPER",
+				"space" : true
 			},
 			"title": {
-				"font": "Avenir",
-				"fontsize": 36,
-				"fontstyle": "BOLD",
-				"align": "RIGHT VCENTER",
-				"offsety": -40
+				"font" : "Avenir",
+				"fontsize" : 24,
+				"align" : "HCENTER",
+				"offsety" : 75,
+				"case" : "UPPER",
+				"space" : true
 			},
 			"subtitle": {
 				"font": "Avenir",
-				"fontsize": 22,
-				"align": "RIGHT VCENTER",
-				"offsety": -25
+				"fontsize": 12,
+				"align": "HCENTER",
+				"offsety": 90
 			},
 			"line": {
 				"align": "HCENTER",
-				"offsety": 0
+				"offsety": 65,
+				"repeats" : 12
 			},
-			"line2": {
-				"align": "HCENTER BOTTOM"
-			}
+			"os" : "mac"
 		},
 		{
 			"label": "Baskerville",
@@ -119,7 +211,7 @@
 			},
 			"title": {
 				"font": "Baskerville",
-				"fontsize": 60,
+				"fontsize": 56,
 				"fontstyle" : "ITALIC",
 				"offsety": -50
 			},
@@ -133,8 +225,65 @@
 				"repeats" : 15,
 				"char" : "\u2501"
 			},
-			"frontmatterfont" : "Baskerville"
+			"frontmatterfont" : "Baskerville",
+			"os" : "mac"
 		},
+		
+		{
+			"label": "Bitter",
+			"thumbnail": "bitter",
+			"composer": {
+				"font": "Bitter",
+				"fontstyle" : "BOLD",
+				"fontsize": 28,
+				"offsety" : 20,
+				"offsetx" : -10,
+				"align" : "RIGHT"
+			},
+			"title": {
+				"font": "Bitter",
+				"fontstyle" : "ITALIC",
+				"fontsize": 26,
+				"offsety" : 45,
+				"offsetx" : -10,
+				"align" : "RIGHT"
+			},
+			"subtitle": {
+				"font": "Bitter",
+				"fontsize": 14,
+				"offsety" : 60,
+				"offsetx" : -10,
+				"align" : "RIGHT"
+			},
+			"fonturl" : "https://fonts.google.com/specimen/Bitter"
+		},
+		
+		{
+			"label": "Bodoni Moda",
+			"thumbnail": "bodonimoda",
+			"composer": {
+				"font": "Bodoni Moda 9pt",
+				"fontsize": 18,
+				"offsety": 40,
+				"align" : "HCENTER"
+			},
+			"title": {
+				"font": "Bodoni Moda 9pt",
+				"fontsize" : 24,
+				"fontstyle" : "BOLD",
+				"offsety" : 70,
+				"align" : "HCENTER",
+				"case" : "UPPER"
+			},
+			"subtitle": {
+				"font": "Bodoni Moda 9pt",
+				"fontsize": 10,
+				"offsety": 80,
+				"align" : "HCENTER"
+			},
+			"fonturl" : "https://fonts.google.com/specimen/Bodoni+Moda"
+		},
+		
 		{
 			"label": "Century Schoolbook",
 			"thumbnail": "centuryschoolbook",
@@ -158,33 +307,111 @@
 			"line": {
 				"offsety" : -35
 			},
-			"frontmatterfont" : "Century Schoolbook"
+			"frontmatterfont" : "Century Schoolbook",
+			"os" : "mac"
 		},
+		
 		{
-			"label": "Chaparral Pro",
-			"thumbnail": "chaparralpro",
+			"label": "Clash Display",
+			"thumbnail": "clashdisplay",
 			"composer": {
-				"font": "Chaparral Pro",
-				"fontsize": 28,
-				"offsety" : 20,
-				"offsetx" : -10,
-				"align" : "RIGHT"
+				"font": "Clash Display",
+				"fontstyle" : "BOLD",
+				"fontsize": 36,
+				"offsety": -65,
+				"case" : "UPPER"
 			},
 			"title": {
-				"font": "Chaparral Pro",
-				"fontsize": 28,
-				"offsety" : 45,
-				"offsetx" : -10,
-				"align" : "RIGHT"
+				"font": "Clash Display",
+				"fontsize": 32,
+				"offsety": -45,
+				"case" : "UPPER"
 			},
 			"subtitle": {
-				"font": "Chaparral Pro",
-				"fontsize": 22,
-				"offsety" : 60,
-				"offsetx" : -10,
-				"align" : "RIGHT"
-			}
+				"font": "Clash Display",
+				"fontsize": 14,
+				"offsety": -30
+			},
+			"line" : {
+				"fontsize" : 22,
+				"fontstyle" : "BOLD",
+				"offsety" : -90,
+				"repeats" : 15
+			},
+			"line2" : {
+				"fontsize" : 22,
+				"fontstyle" : "BOLD",
+				"offsety" : -9,
+				"repeats" : 15
+			},
+			"fonturl" : "https://www.fontshare.com/fonts/clash-display"
 		},
+		
+		{
+			"label": "Crimson Pro",
+			"thumbnail": "crimsonpro",
+			"composer": {
+				"font": "Crimson Pro",
+				"fontstyle" : "BOLD",
+				"fontsize": 36,
+				"offsety": 20,
+				"align" : "HCENTER"
+			},
+			"title": {
+				"font": "Crimson Pro",
+				"fontsize": 32,
+				"offsety": 42,
+				"align" : "HCENTER"
+			},
+			"subtitle": {
+				"font": "Crimson Pro",
+				"fontsize": 16,
+				"fontstyle" : "ITALIC",
+				"offsety": 55,
+				"align" : "HCENTER"
+			},
+			"line" : {
+				"fontsize" : 22,
+				"fontstyle" : "BOLD",
+				"offsety" : 35,
+				"repeats" : 11,
+				"align" : "HCENTER"
+			},
+			"frontmatterfont" : "Crimson Pro",
+			"fonturl" : "https://www.fontshare.com/fonts/crimson-pro"
+		},
+		
+		{
+			"label": "EB Garamond",
+			"thumbnail": "ebgaramond",
+			"composer": {
+				"font": "EB Garamond",
+				"fontsize": 30,
+				"align": "HCENTER",
+				"offsety": 40
+			},
+			"title": {
+				"font" : "EB Garamond",
+				"fontsize": 32,
+				"offsety": 66,
+				"align" : "HCENTER"
+			},
+			"subtitle": {
+				"font" : "EB Garamond",
+				"fontsize": 14,
+				"offsety": 80,
+				"align": "HCENTER"
+			},
+			"line": {
+				"align": "HCENTER",
+				"offsety": 58,
+				"fontsize" : 10,
+				"repeats" : 50
+			},
+			"os" : "mac",
+			"fonturl" : "https://fonts.google.com/specimen/EB+Garamond"
+		},
+		
 		{
 			"label": "Fanwood Text",
 			"thumbnail": "fanwoodtext",
@@ -210,8 +437,10 @@
 				"repeats" : 1,
 				"fontsize" : 32,
 				"offsety" : -35
-			}
+			},
+			"fonturl" : "https://www.theleagueofmoveabletype.com/fanwood"
 		},
+		
 		{
 			"label": "Futura",
 			"thumbnail": "futura",
@@ -234,6 +463,7 @@
 				"align" : "RIGHT VCENTER"
 			}
 		},
+		
 		{
 			"label": "Gill Sans",
 			"thumbnail": "gillsans",
@@ -287,6 +517,31 @@
 			},
 			"frontmatterfont" : "Goudy Old Style"
 		},
+		
+		{
+			"label": "Helvetica Neue",
+			"thumbnail": "helveticaneue",
+			"composer": {
+				"font": "Helvetica Neue",
+				"fontsize": 26,
+				"offsety": 40,
+				"align" : "RIGHT"
+			},
+			"title": {
+				"font": "Helvetica Neue",
+				"fontsize" : 24,
+				"fontstyle" : "BOLD",
+				"offsety" : 70,
+				"align" : "RIGHT"
+			},
+			"subtitle": {
+				"font": "Helvetica Neue",
+				"fontsize": 12,
+				"offsety": 80,
+				"align" : "RIGHT"
+			}
+		},
+		
 		{
 			"label": "Lucida Bright",
 			"thumbnail": "lucidabright",
@@ -318,6 +573,103 @@
 			}
 		},
 		
+		{
+			"label": "Linden Hill",
+			"thumbnail": "lindenhill",
+			"composer": {
+				"font": "Linden Hill",
+				"fontsize": 32,
+				"offsety": 60,
+				"align" : "HCENTER"
+			},
+			"title": {
+				"font": "Linden Hill",
+				"fontsize": 32,
+				"fontstyle" : "ITALIC",
+				"offsety": 90,
+				"align" : "HCENTER"
+			},
+			"subtitle": {
+				"font": "Linden Hill",
+				"fontsize": 12,
+				"offsety" : 105,
+				"align" : "HCENTER"
+			},
+			"line" : {
+				"char" : "\u2756",
+				"repeats" : 1,
+				"fontsize" : 16,
+				"offsety" : 77,
+				"align" : "HCENTER"
+			},
+			"fonturl" : "https://www.theleagueofmoveabletype.com/linden-hill"
+		},
+		
+		{
+			"label": "Literata",
+			"thumbnail": "literata",
+			"composer": {
+				"font": "Literata",
+				"fontstyle" : "BOLD",
+				"fontsize": 28,
+				"offsety": 60,
+				"align" : "HCENTER"
+			},
+			"title": {
+				"font": "Literata",
+				"fontstyle" : "ITALIC",
+				"fontsize": 26,
+				"offsety": 80,
+				"align" : "HCENTER"
+			},
+			"subtitle": {
+				"font": "Literata",
+				"fontsize" : 14,
+				"offsety": 95,
+				"align" : "HCENTER"
+			},
+			"line" : {
+				"align" : "HCENTER",
+				"repeats" : 12,
+				"offsety" : 40
+			},
+			"line2" : {
+				"align" : "HCENTER",
+				"repeats" : 12,
+				"offsety" : 115
+			},
+			"fonturl" : "https://www.fontshare.com/fonts/literata"
+		},
+		
+		{
+			"label": "Lulo Clean",
+			"thumbnail": "luloclean",
+			"composer": {
+				"font": "LuloCleanOne",
+				"fontsize": 24,
+				"offsety": 40,
+				"align" : "HCENTER"
+			},
+			"title": {
+				"font": "LuloCleanOne",
+				"fontsize" : 20,
+				"offsety" : 66,
+				"align" : "HCENTER"
+			},
+			"subtitle": {
+				"font": "LuloCleanOne",
+				"fontsize": 10,
+				"offsety": 77,
+				"align" : "HCENTER"
+			},
+			"line" : {
+				"align": "HCENTER",
+				"fontsize" : 12,
+				"offsety" : 56,
+				"repeats" : 18
+			},
+			"fonturl" : "https://www.fontshmonts.com/display-fonts/lulo-clean/"
+		},
 		
 		{
 			"label" : "Optima",
@@ -330,7 +682,7 @@
 			},
 			"title": {
 				"font": "Optima",
-				"fontsize": 52,
+				"fontsize": 48,
 				"offsety" : -60,
 				"case" : "UPPER"
 			},
@@ -350,6 +702,7 @@
 				"align" : "HCENTER BOTTOM"
 			}
 		},
+		
 		{
 			"label": "Proxima Nova",
 			"thumbnail": "proximanova",
@@ -379,26 +732,27 @@
 				"align" : "HCENTER BOTTOM"
 			}
 		},
+		
 		{
 			"label": "Rockwell",
 			"thumbnail": "rockwell",
 			"composer": {
 				"font": "Rockwell",
-				"fontsize": 52,
+				"fontsize": 50,
 				"offsetx": 10,
 				"offsety": 30,
 				"align": "LEFT"
 			},
 			"title": {
 				"font": "Rockwell",
-				"fontsize": 46,
+				"fontsize": 42,
 				"offsetx": 10,
 				"offsety": -40,
 				"align": "LEFT VCENTER"
 			},
 			"subtitle": {
 				"font": "Rockwell",
-				"fontsize": 22,
+				"fontsize": 20,
 				"offsetx": 10,
 				"offsety": -25,
 				"align": "LEFT VCENTER"
@@ -408,7 +762,96 @@
 			}
 		},
 		{
-			"label": "Work Sans (open-foundry.com)",
+			"label": "Satoshi",
+			"thumbnail": "satoshi",
+			"composer": {
+				"font": "Satoshi",
+				"fontstyle" : "BOLD",
+				"fontsize": 36,
+				"offsety": 40,
+				"align" : "HCENTER",
+				"case" : "UPPER"
+			},
+			"title": {
+				"font": "Satoshi",
+				"fontsize": 28,
+				"fontstyle" : "ITALIC",
+				"offsety": 70,
+				"align" : "HCENTER"
+			},
+			"subtitle": {
+				"font": "Satoshi",
+				"fontsize": 14,
+				"offsety": 85,
+				"align" : "HCENTER",
+				"case" : "UPPER"
+			},
+			"line" : {
+				"align": "HCENTER",
+				"offsety" : 60
+			},
+			"fonturl" : "https://www.fontshare.com/fonts/satoshi"
+		},
+		
+		{
+			"label": "Supreme",
+			"thumbnail": "supreme",
+			"composer": {
+				"font": "Supreme",
+				"fontsize": 36,
+				"fontstyle" : "BOLD",
+				"offsety": 20,
+				"align": "RIGHT"
+			},
+			"title": {
+				"font": "Supreme",
+				"fontsize": 32,
+				"offsety": 40,
+				"align": "RIGHT"
+			},
+			"subtitle": {
+				"font": "Supreme",
+				"fontsize": 14,
+				"offsety": 55,
+				"align": "RIGHT"
+			},
+			"fonturl" : "https://www.fontshare.com/fonts/supreme"
+		},
+		
+		{
+			"label": "U001Con",
+			"thumbnail": "u001con",
+			"composer": {
+				"font": "U001Con",
+				"fontstyle" : "BOLD",
+				"fontsize": 32,
+				"offsety": 40,
+				"align" : "HCENTER"
+			},
+			"title": {
+				"font": "U001Con",
+				"fontstyle" : "BOLD",
+				"fontsize": 32,
+				"offsety": 66,
+				"align" : "HCENTER"
+			},
+			"subtitle": {
+				"font": "U001Con",
+				"fontsize": 17,
+				"offsety": 80,
+				"align" : "HCENTER"
+			},
+			"line" : {
+				"align": "HCENTER",
+				"fontsize" : 36,
+				"fontstyle" : "BOLD",
+				"offsety" : 56,
+				"repeats" : 8
+			},
+			"fonturl" : "https://fontlibrary.org/en/font/u001"
+		},
+		{
+			"label": "Work Sans",
 			"thumbnail": "worksans",
 			"composer": {
 				"font": "Work Sans",
@@ -432,7 +875,8 @@
 				"offsety" : -48,
 				"repeats" : 15,
 				"char" : "\u2501"
-			}
+			},
+			"fonturl" : "https://fonts.google.com/specimen/Work+Sans"
 		}
 	]
 }

@@ -211,6 +211,8 @@ MuseScore {
 			}
 			if ("offsetx" in composerStyle) newComposer.offsetX = composerStyle.offsetx / spatium;
 			if ("case" in composerStyle) if (composerStyle.case == "UPPER") newComposer.text = newComposer.text.toUpperCase();
+			if ("space" in composerStyle) newComposer.text = newComposer.text.replace(/(.)/g,'$1\u2009'); // 2009 is a thin space
+
 			curScore.endCmd();
 		}
 		if (newTitle != null) {
@@ -241,6 +243,8 @@ MuseScore {
 			}
 			if ("offsetx" in titleStyle) newTitle.offsetX = titleStyle.offsetx / spatium;
 			if ("case" in titleStyle) if (titleStyle.case == "UPPER") newTitle.text = newTitle.text.toUpperCase();
+			if ("space" in titleStyle) newTitle.text = newTitle.text.replace(/(.)/g,'$1\u2009'); // 2009 is a thin space
+
 			curScore.endCmd();
 		}
 		if (newSubtitle != null) {
@@ -280,7 +284,11 @@ MuseScore {
 			if ("offsetx" in lineStyle) newLine.offsetX = lineStyle.offsetx / spatium;
 			var repeats = 23;
 			if ("repeats" in lineStyle) repeats = lineStyle.repeats;
-			if ("char" in lineStyle) newLine.text = lineStyle.char.repeat(repeats);
+			if ("char" in lineStyle) {
+				newLine.text = lineStyle.char.repeat(repeats);
+			} else {
+				if (repeats != 23) newLine.text = '—'.repeat(repeats);
+			}
 			curScore.endCmd();
 		}
 		
@@ -299,7 +307,11 @@ MuseScore {
 			if ("offsetx" in line2Style) newLine2.offsetX = line2Style.offsetx / spatium;
 			var repeats = 23;
 			if ("repeats" in line2Style) repeats = line2Style.repeats;
-			if ("char" in line2Style) newLine2.text = line2Style.char.repeat(repeats);
+			if ("char" in line2Style) {
+				newLine2.text = line2Style.char.repeat(repeats);
+			} else {
+				if (repeats != 23) newLine2.text = '—'.repeat(repeats);
+			}
 			curScore.endCmd();
 		}
 		var calcBoxHeight = hasBottom ? Math.round(titlePageHeight / 1.95) : titlePageHeight;
@@ -315,11 +327,13 @@ MuseScore {
 			curScore.endCmd();
 			theMsg = '<p>Title page and front matter page created.';
 		}
-		
+		theMsg += ' Note that multiline titles or composer texts may require additional manual adjustment.</p>';
 		cmd('escape');
 		cmd('concert-pitch');
 		cmd('concert-pitch');
-		theMsg += ' Note that multiline titles or composer texts may require additional manual adjustment.</p><p><b>IMPORTANT</b>: If you wish to exclude the title page from the parts, please select the title page frame and tick ‘Properties→Exclude from parts’ (I cannot do this automatically).</p>';
+		if ("fonturl" in chosenTitlePageStyle) theMsg += '<p><b>NOTE</b>: This template requires installation of the font ‘'+titleStyle.font+'’. It can be downloaded from <a href = "'+chosenTitlePageStyle.fonturl+'">'+chosenTitlePageStyle.fonturl+'</a>.</p>';
+		
+		theMsg += '<p><b>IMPORTANT</b>: If you wish to exclude the title page from the parts, please select the title page frame and tick ‘Properties→Exclude from parts’ (I cannot do this automatically).</p>';
 		dialog.msg = theMsg; 
 		dialog.show();
 	}
@@ -339,8 +353,8 @@ MuseScore {
 	
 	StyledDialogView {
 		id: dialog
-		title: "CHECK COMPLETED"
-		contentHeight: 232
+		title: "TITLE PAGE CREATED"
+		contentHeight: 262
 		contentWidth: 456
 		property var msg: ""
 	
@@ -540,7 +554,7 @@ MuseScore {
 			anchors.bottomMargin: 20
 			anchors.left: parent.left
 			anchors.leftMargin: 20
-			text: "<b>NOTE</b>: end result may differ if you do not have the specific font installed."
+			text: '<b>NOTE</b>: end result may differ if you do not have the specific font installed. Links to required fonts can be found <a href="https://github.com/mnorrisvuw/MN-Utility-Plugins-for-MuseScore/blob/main/README.md">here</a>'
 		}
 	}
 }

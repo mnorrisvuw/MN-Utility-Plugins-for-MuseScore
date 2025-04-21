@@ -65,13 +65,16 @@ Direct downloads of the Zip file can be found on the [releases page](https://git
 The title page templates make use of the following commonly available fonts. Many of these fonts come bundled with the Windows and/or Mac OS operating systems, with Microsoft Office, or as a free download.
 
 Depending on your particular combination of OS and other software, **you may or may not already have them installed**. If you need to install them, below is a list of download links:
-* **Academy Engraved LET**: available for download [here](https://fontsgeek.com/fonts/Academy-Engraved-LET-Plain)
-* **Aptos**: bundled with the latest available for download [here](https://www.microsoft.com/en-us/download/details.aspx?id=106087)
+* **Academy Engraved LET**: bundled with Mac OS X; available for download [here](https://fontsgeek.com/fonts/Academy-Engraved-LET-Plain)
+* **Aptos**: bundled with Windows and Microsoft products; the latest available for download [here](https://www.microsoft.com/en-us/download/details.aspx?id=106087)
+* **Archivo**: available for download [here](https://www.fontshare.com/fonts/archivo)
 * **Avenir**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/avenir-font/)
 * **Baskerville**: bundled with Mac OS X; Libre Baskerville, a very similar font, is available for download [here](https://fonts.google.com/specimen/Libre+Baskerville) — you will need to manually set the fonts to Libre Baskerville.
-* **Century Schoolbook**: available for download [here](https://www.dafontfree.io/download/century-schoolbook/)
+* **Century Schoolbook**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/download/century-schoolbook/)
 * **Chaparral Pro**: available for download [here](https://font.download/font/chaparral-pro)
-* **Fanwood Text**: available for free download [here](https://www.theleagueofmoveabletype.com/fanwood)
+* **Clash Display**: available for download [here](https://www.fontshare.com/fonts/clash-display)
+* **Crimson Pro**: available for download [here](https://www.fontshare.com/fonts/crimson-pro)
+* **Fanwood Text**: available for download [here](https://www.theleagueofmoveabletype.com/fanwood)
 * **Futura**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/futura-font-free/)
 * **Gill Sans**: bundled with Max OS X and Windows 11; available for download [here](https://font.download/font/gill-sans-2)
 * **Goudy Old Style**: bundled with Microsoft Office; available for download [here](https://font.download/font/goudy-old-style)
@@ -80,6 +83,8 @@ Depending on your particular combination of OS and other software, **you may or 
 * **Palatino**: bundled with Mac OS X and Windows 11
 * **Proxima Nova**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/proxima-nova-font-free/)
 * **Rockwell**: bundled with Mac OS X; available for download [here](https://freefontsfamily.org/rockwell-font-free/)
+* **Satoshi**: available for download [here](https://www.fontshare.com/fonts/satoshi)
+* **Supreme**: available for download [here](https://www.fontshare.com/fonts/supreme)
 * **Work Sans**: available for download [here](https://open-foundry.com/fonts/work_sans_light)
 
 ## <a id="use"></a>How to use

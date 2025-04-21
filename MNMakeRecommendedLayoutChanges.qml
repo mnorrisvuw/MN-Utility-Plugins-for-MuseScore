@@ -38,6 +38,8 @@ MuseScore {
 	property var removeStretchesOption: false
 	property var setTitleFrameOption: false
 	property var formatTempoMarkingsOption: false
+	property var spatium: 0
+	
 	onRun: {
 		if (!curScore) return;
 		
@@ -59,6 +61,7 @@ MuseScore {
 		
 		var finalMsg = '';
 		// get some variables
+		spatium = curScore.style.value("spatium")*inchesToMM/mscoreDPI;
 
 
 		curScore.startCmd();
@@ -191,10 +194,11 @@ MuseScore {
 			staffSize = 5.2 - Math.floor((numParts - 8) * 0.5) / 10.;
 			if (staffSize < 3.7) staffSize = 3.7;
 		}
-		var spatium = staffSize / 4.0;
+		var newSpatium = staffSize / 4.0;
 		
-		setSetting ("spatium",spatium/inchesToMM*mscoreDPI);
-		
+		setSetting ("spatium",newSpatium/inchesToMM*mscoreDPI);
+		spatium = curScore.style.value("spatium")*inchesToMM/mscoreDPI;
+
 		// SET STAFF NAME VISIBILITY
 		setSetting ("hideInstrumentNameIfOneInstrument",1);
 		setSetting ("firstSystemInstNameVisibility",0);
@@ -240,11 +244,11 @@ MuseScore {
 	function setPartSettings () {
 		
 		if (isSoloScore || numExcerpts < numParts) return;
-		var spatium = (6.8 / 4) / inchesToMM*mscoreDPI;
+		var newSpatium = (6.8 / 4) / inchesToMM*mscoreDPI;
 		for (var i = 0; i < numExcerpts; i++) {
 			var thePart = excerpts[i];
 			if (thePart != null) {
-				setPartSetting (thePart, "spatium", spatium);
+				setPartSetting (thePart, "spatium", newSpatium);
 				setPartSetting (thePart, "enableIndentationOnFirstSystem", 0);
 				setPartSetting (thePart, "enableVerticalSpread", 1);
 				setPartSetting (thePart, "minSystemSpread", 6);
@@ -275,7 +279,7 @@ MuseScore {
 				}
 				if (setTimesOption) {
 					var fontsToTimes = ["tuplet", "lyricsOdd", "lyricsEven", "hairpin", "romanNumeral", "volta", "stringNumber", "longInstrument", "shortInstrument","expression", "tempo", "tempoChange", "metronome", "measureNumber", "mmRestRange", "systemText", "staffText", "pageNumber", "instrumentChange"];
-					for (var i = 0; i < fontsToTimes.length; i++) setPartSetting (thePart, fontsToTimes[i]+"FontFace", "Times New Roman");
+					for (var i = 0; i < fontsToTimes.length; i++) setPartSetting (thePart, fontsToTimes[i]+"FontFace", "Times New Roman Accidentals");
 				}
 				
 				if (removeLayoutBreaksOption) {
@@ -305,7 +309,15 @@ MuseScore {
 		setSetting ("partInstrumentFrameType", 1);
 		setSetting ("partInstrumentFramePadding", 0.8);
 		
-		var fontsToTwelvePoint = ["longInstrument", "shortInstrument", "partInstrument", "tempo", "tempoChange", "metronome", "pageNumber", "expression", "staffText", "systemText", "rehearsalMark"];
+		if (spatium > 1.5) {
+			setSetting ("tempoFontSize", 12);
+			setSetting ("tempoChangeFontSize", 12);
+		} else {
+			setSetting ("tempoFontSize", 13);
+			setSetting ("tempoChangeFontSize", 13);
+		}
+		
+		var fontsToTwelvePoint = ["longInstrument", "shortInstrument", "partInstrument", "metronome", "pageNumber", "expression", "staffText", "systemText", "rehearsalMark"];
 		for (var i = 0; i < fontsToTwelvePoint.length; i++) setSetting (fontsToTwelvePoint[i]+"FontSize", 12);
 	}
 	
@@ -316,7 +328,7 @@ MuseScore {
 	
 	function setTimes () {
 		var fontsToTimes = ["tuplet", "lyricsOdd", "lyricsEven", "hairpin", "romanNumeral", "volta", "stringNumber", "longInstrument", "shortInstrument","expression", "tempo", "tempoChange", "metronome", "measureNumber", "mmRestRange", "systemText", "staffText", "pageNumber", "instrumentChange"];
-		for (var i = 0; i < fontsToTimes.length; i++) setSetting (fontsToTimes[i]+"FontFace", "Times New Roman");
+		for (var i = 0; i < fontsToTimes.length; i++) setSetting (fontsToTimes[i]+"FontFace", "Times New Roman Accidentals");
 	}
 	
 	function setTitleFrame () {
@@ -328,7 +340,6 @@ MuseScore {
 		doCmd ("select-similar");
 		var elems = curScore.selection.elements;
 		var firstPageNum = firstMeasure.parent.parent.pagenumber;
-		var spatium = curScore.style.value("spatium")*inchesToMM/mscoreDPI;
 		var topbox = null;
 		for (var i = 0; i < elems.length; i++) {
 			var e = elems[i];
@@ -601,7 +612,7 @@ MuseScore {
 				}
 			}
 			CheckBox {
-				text: "Set text font to Times New Roman"
+				text: "Set text font to Times New Roman Accidentals*"
 				checked: options.setTimes
 				onClicked: {
 					checked = !checked
@@ -642,6 +653,10 @@ MuseScore {
 					makeChanges()
 				}
 			}
+		}
+		
+		Text {
+			text : '*Times New Roman Accidentals requires installation of custom font (provided)'
 		}
 	}
 }
