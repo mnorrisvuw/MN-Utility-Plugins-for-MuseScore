@@ -564,6 +564,7 @@ MuseScore {
 			anchors.left: parent.left
 			anchors.leftMargin: 20
 			text: '<b>NOTE</b>: end result may differ if you do not have the specific font installed. Links to required fonts can be found <a href="https://github.com/mnorrisvuw/MN-Utility-Plugins-for-MuseScore/blob/main/README.md">here</a>'
+			onLinkActivated: Qt.openUrlExternally(link)
 		}
 	}
 }
