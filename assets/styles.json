@@ -548,19 +548,19 @@
 			"composer": {
 				"font": "Lucida Bright",
 				"align" : "HCENTER",
-				"fontsize": 40,
+				"fontsize": 36,
 				"offsety": 20
 			},
 			"title": {
 				"font": "Lucida Bright",
 				"align": "HCENTER",
-				"fontsize": 40,
+				"fontsize": 36,
 				"offsety": 50
 			},
 			"subtitle": {
 				"font": "Lucida Bright",
 				"align" : "HCENTER",
-				"fontsize": 20,
+				"fontsize": 18,
 				"offsety": 70
 			},
 			"line": {

@@ -102,12 +102,12 @@ MuseScore {
 		//changeInstrumentNames();
 		
 		// SELECT NONE
-		cmd ('escape');
 		
-		cmd ('escape');
 		curScore.endCmd();
-		cmd ('relayout');
-		
+		cmd ('escape');
+		cmd ('escape');
+		cmd ('concert-pitch');
+		cmd ('concert-pitch');
 		var dialogMsg = '';
 		if (amendedParts) {
 			dialogMsg = '<p>Changes to the layout of the score and parts were made successfully.</p><p><b>NOTE</b>: If your parts were open, you’ll need to close and re-open them to see the correct layout.</p><p>Some changes may not be optimal, and further tweaks are likely to be required.</p>';
@@ -327,7 +327,9 @@ MuseScore {
 	}
 	
 	function setTimes () {
-		var fontsToTimes = ["tuplet", "lyricsOdd", "lyricsEven", "hairpin", "romanNumeral", "volta", "stringNumber", "longInstrument", "shortInstrument","expression", "tempo", "tempoChange", "metronome", "measureNumber", "mmRestRange", "systemText", "staffText", "pageNumber", "instrumentChange"];
+		var fontsToTimes = ["tuplet", "lyricsOdd", "lyricsEven", "hairpin", "romanNumeral", "volta", "stringNumber","expression", "tempo", "tempoChange", "metronome", "measureNumber", "mmRestRange", "systemText", "staffText", "pageNumber"];
+		for (var i = 0; i < fontsToTimes.length; i++) setSetting (fontsToTimes[i]+"FontFace", "Times New Roman");
+		var fontsToTimes = ["longInstrument", "shortInstrument", "instrumentChange"];
 		for (var i = 0; i < fontsToTimes.length; i++) setSetting (fontsToTimes[i]+"FontFace", "Times New Roman Accidentals");
 	}
 	
@@ -382,17 +384,22 @@ MuseScore {
 	function formatTempoMarkings () {
 		doCmd ('select-all');
 		var elems = curScore.selection.elements;
-		const r = /((<sym>metNoteQuarterUp<\/sym>|<sym>metNoteHalfUp<\/sym>|<sym>metNote8thUp<\/sym>|\uECA5|\uECA7|\uECA3)([^=])*=([^0-9]*)*[0-9]*)/g;
+		var r = new RegExp('(.*?)(<sym>metNoteQuarterUp<\/sym>|<sym>metNoteHalfUp<\/sym>|<sym>metNote8thUp<\/sym>|\\uECA5|\\uECA7|\\uECA3)(.*?)( |\\u00A0|\\u2009)=( |\\u00A0|\\u2009)');
+		var f = new RegExp('<\/?font.*?>','g');
 		for (var i = 0; i < elems.length; i++) {
 			var e = elems[i];
 			if (e.type == Element.TEMPO_TEXT) {
 				var t = e.text;
 				if (t.match(r) && !t.includes('<b>')) {
-					//e.fontStyle = 0;
-					
-					
+					e.fontStyle = 0;
 					//e.text = t.replace(r,'BOB'));
-					e.text = '<b>'+t.replace(r,'</b>$1');
+					// delete all font tags
+					t = t.replace (f,'');
+					if (t.match(r)[1] === '') {
+						e.text = t.replace(r,'$2$3\u2009=\u2009');
+					} else {
+						e.text = '<b>'+t.replace(r,'$1</b>$2$3\u2009=\u2009');
+					}
 				}
 			}
 		}
@@ -495,8 +502,8 @@ MuseScore {
 	StyledDialogView {
 		id: options
 		title: "MN MAKE RECOMMENDED LAYOUT CHANGES"
-		contentHeight: 360
-		contentWidth: 500
+		contentHeight: 420
+		contentWidth: 480
 		property color backgroundColor: ui.theme.backgroundSecondaryColor
 		property var removeBreaks: true
 		property var setSpacing: true
@@ -511,11 +518,12 @@ MuseScore {
 	
 		Text {
 			id: styleText
-			anchors.left: parent.left;
-			anchors.leftMargin: 20;
-			anchors.top: parent.top;
-			anchors.topMargin: 20;
-	
+			anchors {
+				left: parent.left;
+				leftMargin: 20;
+				top: parent.top;
+				topMargin: 20;
+			}
 			text: "Options"
 			font.bold: true
 			font.pointSize: 18
@@ -523,15 +531,15 @@ MuseScore {
 		
 		Rectangle {
 			id: rect
-			anchors.left: styleText.left;
-			anchors.top: styleText.bottom;
-			anchors.topMargin: 10;
+			anchors {
+				left: styleText.left;
+				top: styleText.bottom;
+				topMargin: 10;
+			}
 			width: parent.width-45
 			height: 1
 			color: "black"
 		}
-		
-		
 		
 		GridLayout {
 			id: grid
@@ -539,9 +547,11 @@ MuseScore {
 			columnSpacing: 15
 			rowSpacing: 15
 			width: 280
-			anchors.left: rect.left;
-			anchors.top: rect.bottom;
-			anchors.topMargin: 10;
+			anchors {
+				left: rect.left;
+				top: rect.bottom;
+				topMargin: 10;
+			}
 			Text {
 				id: layoutLabel
 				text: "Change layout"
@@ -556,7 +566,6 @@ MuseScore {
 					options.removeBreaks = checked
 				}
 			}
-			
 			CheckBox {
 				text: "Tweak title frame layout"
 				checked: options.setTitleFrame
@@ -603,6 +612,7 @@ MuseScore {
 				font.bold: true
 				Layout.columnSpan: 2
 			}
+			
 			CheckBox {
 				text: "Set music font to Bravura"
 				checked: options.setBravura
@@ -612,7 +622,7 @@ MuseScore {
 				}
 			}
 			CheckBox {
-				text: "Set text font to Times New Roman Accidentals*"
+				text: "Set text font to Times New Roman*"
 				checked: options.setTimes
 				onClicked: {
 					checked = !checked
@@ -637,6 +647,16 @@ MuseScore {
 			}
 		}
 		
+		Text {
+			text : '<p>*Requires installation of custom font ‘Times New Roman Accidentals’<br />(provided in download folder)</p>'
+			textFormat: Text.RichText
+			anchors {
+				left: grid.left
+				top: grid.bottom
+				topMargin: 36
+			}
+		}
+		
 		ButtonBox {
 			anchors {
 				horizontalCenter: parent.horizontalCenter
@@ -655,8 +675,6 @@ MuseScore {
 			}
 		}
 		
-		Text {
-			text : '*Times New Roman Accidentals requires installation of custom font (provided)'
-		}
+		
 	}
 }

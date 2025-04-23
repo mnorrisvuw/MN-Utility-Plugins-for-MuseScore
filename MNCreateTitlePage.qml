@@ -90,7 +90,13 @@ MuseScore {
 				var eSubtype = e.subtypeName();
 				if (eSubtype == 'Title') theTitle = e.text;
 				if (eSubtype == 'Subtitle') theSubtitle = e.text;
-				if (eSubtype == 'Composer') theComposer = e.text;
+				if (eSubtype == 'Composer') {
+					if (e.text === e.text.toUpperCase()) {
+						theComposer = theComposer.replace(/\b\w+/g,function(s) { return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();} );
+					} else {
+						theComposer = e.text;
+					}
+				}
 			}
 		}
 		if (vbox != null) { removeElement (vbox)};
@@ -210,7 +216,9 @@ MuseScore {
 				}
 			}
 			if ("offsetx" in composerStyle) newComposer.offsetX = composerStyle.offsetx / spatium;
+			var capitalizeComposer = true;
 			if ("case" in composerStyle) if (composerStyle.case == "UPPER") newComposer.text = newComposer.text.toUpperCase();
+			
 			if ("space" in composerStyle) newComposer.text = newComposer.text.replace(/(.)/g,'$1\u2009'); // 2009 is a thin space
 
 			curScore.endCmd();
@@ -327,7 +335,7 @@ MuseScore {
 			curScore.endCmd();
 			theMsg = '<p>Title page and front matter page created.';
 		}
-		theMsg += ' Note that multiline titles or composer texts may require additional manual adjustment.</p>';
+		theMsg += ' Any long titles, subtitles or composers’ names may require additional manual adjustment.</p>';
 		cmd('escape');
 		cmd('concert-pitch');
 		cmd('concert-pitch');
@@ -354,8 +362,8 @@ MuseScore {
 	StyledDialogView {
 		id: dialog
 		title: "TITLE PAGE CREATED"
-		contentHeight: 262
-		contentWidth: 456
+		contentHeight: 282
+		contentWidth: 466
 		property var msg: ""
 	
 		Text {
@@ -394,6 +402,7 @@ MuseScore {
 				leftInset: 0
 				leftPadding: 0
 				readOnly: true
+				onLinkActivated: Qt.openUrlExternally(link)
 			}
 		}
 	
