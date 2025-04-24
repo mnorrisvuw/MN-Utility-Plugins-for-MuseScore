@@ -19,8 +19,7 @@
 			},
 			"line": {
 				"offsety": -30
-			},
-			"os" : "mac"
+			}
 		},
 		{
 			"label": "Academy Engraved",
@@ -45,7 +44,8 @@
 				"align": "HCENTER",
 				"offsety": 50
 			},
-			"os" : "mac"
+			"os" : "mac",
+			"fonturl" : "https://fontsgeek.com/fonts/Academy-Engraved-LET-Plain"
 		},
 		{
 			"label": "Alegreya Sans",
@@ -198,7 +198,8 @@
 				"offsety": 65,
 				"repeats" : 12
 			},
-			"os" : "mac"
+			"os" : "mac",
+			"fonturl" : "https://www.dafontfree.io/avenir-font/"
 		},
 		{
 			"label": "Baskerville",
@@ -226,7 +227,8 @@
 				"char" : "\u2501"
 			},
 			"frontmatterfont" : "Baskerville",
-			"os" : "mac"
+			"os" : "mac",
+			"fonturl" : "https://fonts.google.com/specimen/Libre+Baskerville"
 		},
 		
 		{
@@ -308,7 +310,8 @@
 				"offsety" : -35
 			},
 			"frontmatterfont" : "Century Schoolbook",
-			"os" : "mac"
+			"os" : "mac",
+			"fonturl" : "https://www.dafontfree.io/download/century-schoolbook/"
 		},
 		
 		{
@@ -461,7 +464,9 @@
 				"font": "Futura",
 				"fontsize": 16,
 				"align" : "RIGHT VCENTER"
-			}
+			},
+			"os" : "mac",
+			"fonturl" : "https://www.dafontfree.io/futura-font-free/"
 		},
 		
 		{
@@ -484,7 +489,9 @@
 				"fontsize": 10,
 				"offsety": -45,
 				"case" : "UPPER"
-			}
+			},
+			"os" : "mac",
+			"fonturl" : "https://font.download/font/gill-sans-2"
 		},
 		
 		{
@@ -515,7 +522,9 @@
 				"char" : "\u2550",
 				"align" : "HCENTER BOTTOM"
 			},
-			"frontmatterfont" : "Goudy Old Style"
+			"frontmatterfont" : "Goudy Old Style",
+			"os" : "mac",
+			"fonturl" : "https://font.download/font/goudy-old-style"
 		},
 		
 		{
@@ -539,7 +548,9 @@
 				"fontsize": 12,
 				"offsety": 80,
 				"align" : "RIGHT"
-			}
+			},
+			"os" : "mac",
+			"fonturl" : "https://font.download/font/helvetica-neue-5"
 		},
 		
 		
@@ -575,36 +586,6 @@
 			"fonturl" : "https://www.theleagueofmoveabletype.com/linden-hill"
 		},
 		
-		{
-			"label": "Lucida Bright",
-			"thumbnail": "lucidabright",
-			"composer": {
-				"font": "Lucida Bright",
-				"align" : "HCENTER",
-				"fontsize": 36,
-				"offsety": 20
-			},
-			"title": {
-				"font": "Lucida Bright",
-				"align": "HCENTER",
-				"fontsize": 36,
-				"offsety": 50
-			},
-			"subtitle": {
-				"font": "Lucida Bright",
-				"align" : "HCENTER",
-				"fontsize": 18,
-				"offsety": 70
-			},
-			"line": {
-				"align" : "HCENTER",
-				"offsety" : 37
-			},
-			"line2": {
-				"align" : "HCENTER",
-				"offsety" : 65
-			}
-		},
 		
 		
 		{
@@ -643,6 +624,37 @@
 			"fonturl" : "https://www.fontshare.com/fonts/literata"
 		},
 		
+		{
+			"label": "Lucida Bright",
+			"thumbnail": "lucidabright",
+			"composer": {
+				"font": "Lucida Bright",
+				"align" : "HCENTER",
+				"fontsize": 36,
+				"offsety": 20
+			},
+			"title": {
+				"font": "Lucida Bright",
+				"align": "HCENTER",
+				"fontsize": 36,
+				"offsety": 50
+			},
+			"subtitle": {
+				"font": "Lucida Bright",
+				"align" : "HCENTER",
+				"fontsize": 18,
+				"offsety": 70
+			},
+			"line": {
+				"align" : "HCENTER",
+				"offsety" : 37
+			},
+			"line2": {
+				"align" : "HCENTER",
+				"offsety" : 65
+			},
+			"fonturl" : "https://fontsgeek.com/fonts/Lucida-Bright-Regular"
+		},
 		{
 			"label": "Lulo Clean",
 			"thumbnail": "luloclean",

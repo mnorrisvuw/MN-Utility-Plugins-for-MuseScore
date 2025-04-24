@@ -83,10 +83,10 @@ Depending on your particular combination of OS and other software, **you may or 
 * **Futura**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/futura-font-free/)
 * **Gill Sans**: bundled with Max OS X and Windows 11; available for download [here](https://font.download/font/gill-sans-2)
 * **Goudy Old Style**: bundled with Microsoft Office; available for download [here](https://font.download/font/goudy-old-style)
-* **Helvetica Neue**: bundled with Mac OS X and Windows
+* **Helvetica Neue**: bundled with Mac OS X; available for download [here](https://font.download/font/helvetica-neue-5)
 * **Linden Hill**: available for download [here](https://www.theleagueofmoveabletype.com/linden-hill)
 * **Literata**: available for download [here](https://www.fontshare.com/fonts/literata)
-* **Lucida Bright**: available for download [here](https://fontsgeek.com/fonts/Lucida-Bright-Regular)
+* **Lucida Bright**: bundled with Microsoft Office; available for download [here](https://fontsgeek.com/fonts/Lucida-Bright-Regular)
 * **Lulo Clean**: available for download [here](https://www.fontshmonts.com/display-fonts/lulo-clean/)
 * **Optima**: bundled with Mac OS X; available for download [here](https://www.dafontfree.io/optima-font/)
 * **Palatino**: bundled with Mac OS X and Windows 11

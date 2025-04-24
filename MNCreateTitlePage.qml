@@ -29,7 +29,8 @@ MuseScore {
 	property var theComposer: ''
 	property var titlePageHeight: 0
 	property var inchesToMM: 25.4
-	property var frontMatterText: "INSTRUMENTATION\n\nFor ensemble and orchestral works, list the instruments required here in score order,\nincluding all doubling instruments and lists of percussion instruments.\n\n\n\nPERFORMANCE INSTRUCTIONS\n\nInclude a list of any unconventional notation used and their meanings,\nand/or any required instrument preparations or other special aspects\nof the piece that can’t be explained on the score.\n\n\n\nDEDICATION\n\nDedicated to ....?\n\n\n\nDURATION\n\nApprox. duration: x mins\n\n\n\n(Delete one) Transposed score / Score in C\n\n\n\nPROGRAMME NOTE\n\nInclude a short programme note here\n\n\n\n© Composer’s Name, 20xx"
+	property var isMac: false
+	property var frontMatterText: "INSTRUMENTATION\n\nFor ensemble and orchestral works, list the instruments required here in score order,\nincluding all doubling instruments and lists of percussion instruments.\n\n\n\nPERFORMANCE INSTRUCTIONS\n\nInclude a list of any unconventional notation used and their meanings,\nand/or any required instrument preparations or other special aspects\nof the piece that can’t be explained on the score.\n\n\n\nDEDICATION\n\nDedicated to ....?\n\n\n\nDURATION\n\nApprox. duration: x mins\n\n\n\n(Delete one) Transposed score / Score in C\n\n\n\nPROGRAMME NOTE\n\nInclude a short programme note here\n\n\n\n© Composer Name, 20xx"
 	
 	FileIO { id: stylesfile;
 		source: Qt.resolvedUrl("./assets/styles.json").toString().slice(8);
@@ -39,8 +40,9 @@ MuseScore {
   onRun: {
 		if (!curScore) return;
 		
+		spatium = curScore.style.value('spatium')*25.4/mscoreDPI;
 		
-		spatium = curScore.style.value("spatium")*25.4/mscoreDPI;
+		isMac = Qt.platform.os === 'osx';
 		
 		// ** CHECK THERE ISN’T ALREADY A TITLE PAGE ** //
 		var firstBarInScore = curScore.firstMeasure;
@@ -53,9 +55,10 @@ MuseScore {
 			return;	
 		}
 		
+		// ** ANALYSE THE EXISTING TITLE, SUBTITLE AND COMPOSER INFO ** //
 		checkTitle ();
 		if (theTitle == '') {
-			dialog.msg = 'I couldn’t find an existing title frame. Please create a standard vertical frame, and add in the Title, Subtitle and Composer texts before running this plugin.';
+			dialog.msg = '<p>I couldn’t find an existing title frame. Please create a standard vertical frame, and add in the Title, Subtitle and Composer texts before running this plugin.</p><p>⚠️</p>';
 			dialog.show();
 			return;
 		}
@@ -88,15 +91,10 @@ MuseScore {
 			if (!e.is(tempText)) {
 				//logError ("Found text object "+e.text);
 				var eSubtype = e.subtypeName();
-				if (eSubtype == 'Title') theTitle = e.text;
-				if (eSubtype == 'Subtitle') theSubtitle = e.text;
-				if (eSubtype == 'Composer') {
-					if (e.text === e.text.toUpperCase()) {
-						theComposer = theComposer.replace(/\b\w+/g,function(s) { return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();} );
-					} else {
-						theComposer = e.text;
-					}
-				}
+				// Strip out any tags
+				if (eSubtype == 'Title') theTitle = e.text.replace(/<[^>]+>/g, "");
+				if (eSubtype == 'Subtitle') theSubtitle = e.text.replace(/<[^>]+>/g, "");
+				if (eSubtype == 'Composer') theComposer = e.text.replace(/<[^>]+>/g, "");
 			}
 		}
 		if (vbox != null) { removeElement (vbox)};
@@ -208,7 +206,7 @@ MuseScore {
 			}
 			if ("offsety" in composerStyle) {
 				var accountForMultipleLines = true;
-				if ("align" in composerStyle) if (!composerStyle.align.includes ("VCENTER")) accountForMultipleLines = false;
+				if ("align" in composerStyle) if (!composerStyle.align.includes ("VCENTER") && composerStyle.offsetY < 40) accountForMultipleLines = false;
 				if (accountForMultipleLines) {
 					newComposer.offsetY = (composerStyle.offsety - ((composerLines - 1) * newComposer.fontSize / 2)) / spatium;
 				} else {
@@ -216,11 +214,21 @@ MuseScore {
 				}
 			}
 			if ("offsetx" in composerStyle) newComposer.offsetX = composerStyle.offsetx / spatium;
-			var capitalizeComposer = true;
-			if ("case" in composerStyle) if (composerStyle.case == "UPPER") newComposer.text = newComposer.text.toUpperCase();
+			var theText = newComposer.text.replace(/<[^>]+>/g, "");
+			var composerIsUpperCase = theText === theText.toUpperCase();
+			var composerGoingToUpperCase = false;
+			if ("case" in composerStyle) {
+				if (composerStyle.case == "UPPER") {
+					theText = theText.toUpperCase();
+					composerGoingToUpperCase = true;
+				}
+			}
+			// convert to titleCase
+			if (composerIsUpperCase && !composerGoingToUpperCase) theText = theText.replace(/\b\w+/g,function(s){return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();});
 			
-			if ("space" in composerStyle) newComposer.text = newComposer.text.replace(/(.)/g,'$1\u2009'); // 2009 is a thin space
-
+			if ("space" in composerStyle) theText = theText.replace(/(.)/g,'$1\u2009'); // 2009 is a thin space
+			if (theText.includes('Arr.') && !composerGoingToUpperCase) theText = theText.replace('Arr.','arr.');
+			newComposer.text = theText;
 			curScore.endCmd();
 		}
 		if (newTitle != null) {
@@ -339,7 +347,9 @@ MuseScore {
 		cmd('escape');
 		cmd('concert-pitch');
 		cmd('concert-pitch');
-		if ("fonturl" in chosenTitlePageStyle) theMsg += '<p><b>NOTE</b>: This template requires installation of the font ‘'+titleStyle.font+'’. It can be downloaded from <a href = "'+chosenTitlePageStyle.fonturl+'">'+chosenTitlePageStyle.fonturl+'</a>.</p>';
+		var displayFontMessage = "fonturl" in chosenTitlePageStyle;
+		if (("os" in chosenTitlePageStyle) && isMac) displayFontMessage = false;
+		if (displayFontMessage) theMsg += '<p><b>NOTE</b>: This template requires the font ‘'+composerStyle.font+'’. If it is not already installed, download from <a href = "'+chosenTitlePageStyle.fonturl+'">'+chosenTitlePageStyle.fonturl+'</a>.</p>';
 		
 		theMsg += '<p><b>IMPORTANT</b>: If you wish to exclude the title page from the parts, please select the title page frame and tick ‘Properties→Exclude from parts’ (I cannot do this automatically).</p>';
 		dialog.msg = theMsg; 
@@ -444,7 +454,7 @@ MuseScore {
 			anchors.leftMargin: 20
 			width: parent.width-40
 	
-			text: "Choose your title page style"
+			text: "Click one of the templates below to create a title page"
 			font.bold: true
 			font.pointSize: 18
 		}
