@@ -98,6 +98,7 @@ MuseScore {
 		// SET PART SETTINGS
 		if (setPartsOption) setPartSettings();
 		
+		
 		// CHANGE INSTRUMENT NAMES
 		//changeInstrumentNames();
 		
@@ -110,7 +111,7 @@ MuseScore {
 		cmd ('concert-pitch');
 		var dialogMsg = '';
 		if (amendedParts) {
-			dialogMsg = '<p>Changes to the layout of the score and parts were made successfully.</p><p><b>NOTE</b>: If your parts were open, you’ll need to close and re-open them to see the correct layout.</p><p>Some changes may not be optimal, and further tweaks are likely to be required.</p>';
+			dialogMsg = '<p>Changes to the layout of the score and parts were made successfully.</p><p><b>NOTE</b>: If your parts were open, you may need to close and re-open them if the layout changes have not been updated.</p><p>Note that some changes may not be optimal, and further tweaks are likely to be required.</p>';
 		} else {
 			dialogMsg = '<p>Changes to the layout of the score were made successfully.</p><p>Note that some changes may not be optimal, and further tweaks are likely to be required.</p>';
 			if (finalMsg != '') dialogMsg = dialogMsg + '<p>' + finalMsg + '</p>';
@@ -270,7 +271,7 @@ MuseScore {
 					setPartSetting (thePart, "pageNumberFontStyle",0);
 					
 					var fontsToTwelvePoint = ["longInstrument", "shortInstrument", "partInstrument", "tempo", "tempoChange", "metronome", "pageNumber", "expression", "staffText", "systemText", "rehearsalMark"];
-					for (var i = 0; i < fontsToTwelvePoint.length; i++) setPartSetting (thePart, fontsToTwelvePoint[i]+"FontSize", 12);
+					for (var j = 0; j < fontsToTwelvePoint.length; j++) setPartSetting (thePart, fontsToTwelvePoint[j]+"FontSize", 12);
 				}
 				if (setBravuraOption) {
 					
@@ -279,7 +280,7 @@ MuseScore {
 				}
 				if (setTimesOption) {
 					var fontsToTimes = ["tuplet", "lyricsOdd", "lyricsEven", "hairpin", "romanNumeral", "volta", "stringNumber", "longInstrument", "shortInstrument","expression", "tempo", "tempoChange", "metronome", "measureNumber", "mmRestRange", "systemText", "staffText", "pageNumber", "instrumentChange"];
-					for (var i = 0; i < fontsToTimes.length; i++) setPartSetting (thePart, fontsToTimes[i]+"FontFace", "Times New Roman Accidentals");
+					for (var j = 0; j < fontsToTimes.length; j++) setPartSetting (thePart, fontsToTimes[j]+"FontFace", "Times New Roman Accidentals");
 				}
 				
 				if (removeLayoutBreaksOption) {
