@@ -246,6 +246,7 @@ MuseScore {
 		
 		if (isSoloScore || numExcerpts < numParts) return;
 		var newSpatium = (6.8 / 4) / inchesToMM*mscoreDPI;
+		
 		for (var i = 0; i < numExcerpts; i++) {
 			var thePart = excerpts[i];
 			if (thePart != null) {
@@ -260,6 +261,7 @@ MuseScore {
 				setPartSetting (thePart, "lastSystemFillLimit", 0);
 				setPartSetting (thePart, "minNoteDistance", 1.3);
 				setPartSetting (thePart, "createMultiMeasureRests", 1);
+				setPartSetting (thePart, "minEmptyMeasures", 2);
 				setPartSetting (thePart, "minMMRestWidth", 18);
 				setPartSetting (thePart, "partInstrumentFrameType", 1);
 				setPartSetting (thePart, "partInstrumentFramePadding", 0.8);
@@ -269,15 +271,15 @@ MuseScore {
 					setPartSetting (thePart, "tupletFontSize", 11);
 					setPartSetting (thePart, "measureNumberFontSize", 8.5);
 					setPartSetting (thePart, "pageNumberFontStyle",0);
-					
 					var fontsToTwelvePoint = ["longInstrument", "shortInstrument", "partInstrument", "tempo", "tempoChange", "metronome", "pageNumber", "expression", "staffText", "systemText", "rehearsalMark"];
 					for (var j = 0; j < fontsToTwelvePoint.length; j++) setPartSetting (thePart, fontsToTwelvePoint[j]+"FontSize", 12);
 				}
+				
 				if (setBravuraOption) {
-					
 					setPartSetting (thePart, "musicalSymbolFont", "Bravura");
 					setPartSetting (thePart, "musicalTextFont", "Bravura Text");
 				}
+				
 				if (setTimesOption) {
 					var fontsToTimes = ["tuplet", "lyricsOdd", "lyricsEven", "hairpin", "romanNumeral", "volta", "stringNumber", "longInstrument", "shortInstrument","expression", "tempo", "tempoChange", "metronome", "measureNumber", "mmRestRange", "systemText", "staffText", "pageNumber", "instrumentChange"];
 					for (var j = 0; j < fontsToTimes.length; j++) setPartSetting (thePart, fontsToTimes[j]+"FontFace", "Times New Roman Accidentals");
